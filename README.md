@@ -89,5 +89,3 @@ to be specified.
 ## License
 
 Glove is licensed under the [MIT License](http://opensource.org/licenses/MIT)
-
-</pre></body></html>
