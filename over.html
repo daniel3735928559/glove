@@ -1,0 +1,65 @@
+<html>
+<head><title>Over</title></head>
+<body>
+<!--<div id="TEST" style="position:absolute;witdh:auto;height:auto;border:1px solid black;top:0;left:0;font-size:10px;font-family:Sans;"></div>-->
+<div id="status_div"
+     style="position:fixed;bottom:0;left:0;height:30px;width:auto;background-color:white;font-size:12px;font-family:sans;padding:2px;border:solid
+     1px #cccccc">Alt+Shift+h to toggle this panel.  Alt+Shift+[key] to switch modes</div>
+<div><canvas id="main_canvas" width="2000" height="1500"
+	     style="border:1px black;background-color:#668866;"
+	     tabindex="1" /></div>
+<br /><br />
+XML: <br />
+<textarea id="xmlout" cols="100" rows="40" style="border:2px solid black;background-color:#ff6666;"><!--XML goes here-->
+<chip>
+
+<module_type name="alu">
+<in width="16" name="A" x="100" y="200"/>
+<in width="16" name="B" x="100" y="250"/>
+<in width="1" name="Cin" x="100" y="300"/>
+<in width="3" name="Op" x="100" y="350"/>
+<in width="1" name="invA" x="100" y="400"/>
+<in width="1" name="invB" x="100" y="450"/>
+<in width="1" name="sign" x="100" y="500"/>
+<in width="1" name="err" x="100" y="550"/>
+<out width="16" name="Out" x="350" y="200"/>
+<out width="1" name="Ofl" x="350" y="250"/>
+<out width="1" name="Z" x="350" y="300"/>
+</module_type>
+
+<module_type name="branchctr">
+<in width="1" name="zero" x="100" y="100"/>
+<in width="1" name="ofl" x="100" y="100"/>
+<in width="2" name="c_branchctrop" x="100" y="100"/>
+<out width="1" name="b_ctrsig" x="150" y="100"/>
+</module_type>
+
+<module_type name="btr_handler">
+<in width="16" name="i0" x="100" y="100"/>
+<out width="16" name="out" x="150" y="100"/>
+</module_type>
+
+<module_type name="Chip">
+  <in width="1" name="i0" x="200" y="140" />
+  <in width="1" name="i1" x="200" y="400" />
+  <out name="out" x="800" y="200" >
+    <conn target="out">
+      <src mod="alu0" pin="Out"/>
+    </conn>
+  </out>
+
+  <module type="branchctr" name="branchctr0" x="400" y="200" />
+
+  <module type="alu" name="alu0" x="600" y="200" >
+    <conn target="B">
+      <src mod="i0" pin="i0"/> AND <src mod="i1" pin="i1"/>
+    </conn>
+    <conn target ="A">
+      <src mod="branchctr0" pin="b_ctrsig"/> | <src mod="branchctr0" pin="b_ctrsig"/>
+    </conn> 
+  </module>
+</module_type>
+</chip>
+</textarea>
+<script type="text/javascript" src="over.js"></script>
+</body></html>

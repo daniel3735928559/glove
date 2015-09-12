@@ -1,0 +1,1082 @@
+<?xml version="1.0"?>
+// ----control.v----
+    module control(inst,state,c_new_sreg_sel,c_imem_addr_sel,c_adiw_phase,c_sp_op,c_ram_adr_sel,c_io_op,c_ram_op,c_rd_w_en,c_dbus_addr_sel,c_pc_offset_mode,c_flags_mask,c_imm_type,c_alu_b_sel,c_pc_stall,c_alu_op,c_rh_sel,c_rampz_inc,c_ex_out_sel,c_pc_next,c_rh_op,c_dbus_out_sel,c_alu_a_sel,c_mem_out_sel,c_branch_mode,c_rd_rr_sel,c_next_state,c_skip);
+    input [15:0] inst;
+    input [1:0] state;
+    output c_new_sreg_sel;
+    output [1:0] c_imem_addr_sel;
+    output c_adiw_phase;
+    output [1:0] c_sp_op;
+    output [2:0] c_ram_adr_sel;
+    output [1:0] c_io_op;
+    output [1:0] c_ram_op;
+    output c_rd_w_en;
+    output [1:0] c_dbus_addr_sel;
+    output c_pc_offset_mode;
+    output [7:0] c_flags_mask;
+    output [2:0] c_imm_type;
+    output c_alu_b_sel;
+    output c_pc_stall;
+    output [3:0] c_alu_op;
+    output [1:0] c_rh_sel;
+    output c_rampz_inc;
+    output c_ex_out_sel;
+    output [2:0] c_pc_next;
+    output [1:0] c_rh_op;
+    output [1:0] c_dbus_out_sel;
+    output [1:0] c_alu_a_sel;
+    output c_mem_out_sel;
+    output c_branch_mode;
+    output [1:0] c_rd_rr_sel;
+    output [1:0] c_next_state;
+    output c_skip;
+    
+    assign c_new_sreg_sel = ;
+    assign c_imem_addr_sel = ;
+    assign c_adiw_phase = ;
+    assign c_sp_op = ;
+    assign c_ram_adr_sel = ;
+    assign c_io_op = ;
+    assign c_ram_op = ;
+    assign c_rd_w_en = ;
+    assign c_dbus_addr_sel = ;
+    assign c_pc_offset_mode = ;
+    assign c_flags_mask = ;
+    assign c_imm_type = ;
+    assign c_alu_b_sel = ;
+    assign c_pc_stall = ;
+    assign c_alu_op = ;
+    assign c_rh_sel = ;
+    assign c_rampz_inc = ;
+    assign c_ex_out_sel = ;
+    assign c_pc_next = ;
+    assign c_rh_op = ;
+    assign c_dbus_out_sel = ;
+    assign c_alu_a_sel = ;
+    assign c_mem_out_sel = ;
+    assign c_branch_mode = ;
+    assign c_rd_rr_sel = ;
+    assign c_next_state = ;
+    assign c_skip = ;
+
+    endmodule
+  // ----Chip.v----
+    module Chip(cp2,ireset,inst,dbusin,irqlines,pc,adr,iore,iowe,ramadr,ramre,ramwe,dbusout,irqack,arqackar,sleepi,irqok,globint,wdri);
+    input cp2;
+    input ireset;
+    input [15:0] inst;
+    input [7:0] dbusin;
+    input [22:0] irqlines;
+    output [15:0] pc;
+    output [15:0] adr;
+    output iore;
+    output iowe;
+    output [15:0] ramadr;
+    output ramre;
+    output ramwe;
+    output [7:0] dbusout;
+    output irqack;
+    output [4:0] arqackar;
+    output sleepi;
+    output irqok;
+    output globint;
+    output wdri;
+    wire operand0_rampz;
+    wire [7:0] operand0_imm_out;
+    wire [7:0] operand0_rd_out;
+    wire [7:0] operand0_rr_out;
+    wire [7:0] operand0_sreg_out;
+    wire [15:0] operand0_Z;
+    wire [7:0] operand0_temp;
+    wire [7:0] operand0_dbusin_int;
+    wire [15:0] operand0_ram_addr;
+    wire operand0_mem_to_reg_out;
+    wire [7:0] execute0_ex_out;
+    wire [7:0] execute0_new_sreg;
+    wire [15:0] execute0_pc_plus_offset;
+    wire execute0_branch_taken;
+    wire [7:0] memory0_mem_output;
+    wire [7:0] memory0_dbus_out;
+    wire [5:0] memory0_adr;
+    wire memory0_ram_re;
+    wire memory0_ram_we;
+    wire memory0_io_re;
+    wire memory0_io_we;
+    wire [15:0] fetch0_addr;
+    wire decode0_is_32_bit;
+    wire decode0_c_new_sreg_sel;
+    wire [1:0] decode0_c_imem_addr_sel;
+    wire decode0_c_adiw_phase;
+    wire [2:0] decode0_c_ram_adr_sel;
+    wire [1:0] decode0_c_sp_op;
+    wire [1:0] decode0_c_io_op;
+    wire [1:0] decode0_c_rd_rr_sel;
+    wire decode0_c_branch_mode;
+    wire [1:0] decode0_c_mem_out_sel;
+    wire [1:0] decode0_c_alu_a_sel;
+    wire [1:0] decode0_c_dbus_out_sel;
+    wire [1:0] decode0_c_rh_op;
+    wire [2:0] decode0_c_pc_next;
+    wire decode0_c_ex_out_sel;
+    wire decode0_c_rampz_inc;
+    wire [1:0] decode0_c_rh_sel;
+    wire [3:0] decode0_c_alu_op;
+    wire decode0_c_pc_stall;
+    wire decode0_c_alu_b_sel;
+    wire [3:0] decode0_c_imm_type;
+    wire [7:0] decode0_c_flags_mask;
+    wire decode0_c_pc_offset_mode;
+    wire [1:0] decode0_c_dbus_addr_sel;
+    wire decode0_c_rd_w_en;
+    wire [1:0] decode0_c_ram_op;
+    
+    operand  operand0(
+    //Inputs
+    .inst_in(inst),
+    .c_rd_rr_sel(decode0_c_rd_rr_sel),
+    .c_adiw_phase(decode0_c_adiw_phase),
+    .c_rd_w_en(decode0_c_rd_w_en),
+    .c_ram_op(decode0_c_ram_op),
+    .c_ram_addr_sel(decode0_c_ram_adr_sel),
+    .c_rh_sel(decode0_c_rh_sel),
+    .c_imm_type_in(decode0_c_imm_type),
+    .c_rampz_inc(decode0_c_rampz_inc),
+    .c_sp_op(decode0_c_sp_op),
+    .c_rh_op(decode0_c_rh_op),
+    .mem_out_in(memory0_mem_output),
+    .dbus_adr(memory0_adr),
+    .io_re(memory0_io_re),
+    .io_we(memory0_io_we),
+    .dbus_out(memory0_dbus_out),
+    .dbusin_ext(dbusin),
+    .sreg_in(execute0_new_sreg),
+    .clk(cp2),
+    .rst(ireset),
+    //Outputs
+    .rampz(operand0_rampz),
+    .imm_out(operand0_imm_out),
+    .rd_out(operand0_rd_out),
+    .rr_out(operand0_rr_out),
+    .sreg_out(operand0_sreg_out),
+    .Z(operand0_Z),
+    .temp(operand0_temp),
+    .dbusin_int(operand0_dbusin_int),
+    .ram_addr(operand0_ram_addr),
+    .mem_to_reg_out(operand0_mem_to_reg_out));
+  
+    execute  execute0(
+    //Inputs
+    .inst_in(inst),
+    .imm_in(operand0_imm_out),
+    .rd_in(operand0_rd_out),
+    .rr_in(operand0_rr_out),
+    .sreg_in(operand0_sreg_out),
+    .Z(operand0_Z),
+    .temp(operand0_temp),
+    .c_alu_a_sel(decode0_c_alu_a_sel),
+    .pc_in(fetch0_addr),
+    .c_branch_mode(decode0_c_branch_mode),
+    .c_alu_b_sel(decode0_c_alu_b_sel),
+    .c_flags_mask(decode0_c_flags_mask),
+    .c_alu_op(decode0_c_alu_op),
+    .c_pc_offset_mode(decode0_c_pc_offset_mode),
+    .c_new_sreg_sel(decode0_c_new_sreg_sel),
+    .c_ex_out(decode0_c_ex_out_sel),
+    //Outputs
+    .ex_out(execute0_ex_out),
+    .new_sreg(execute0_new_sreg),
+    .pc_plus_offset(execute0_pc_plus_offset),
+    .branch_taken(execute0_branch_taken));
+  
+    memory  memory0(
+    //Inputs
+    .ex_out(execute0_ex_out),
+    .dbus_in(operand0_dbusin_int),
+    .imm_in(operand0_imm_out),
+    .ram_addr_in(operand0_ram_addr),
+    .c_ram_re(decode0_c_ram_op[1]),
+    .c_ram_we(decode0_c_ram_op[0]),
+    .c_io_re(decode0_c_io_op[1]),
+    .c_io_we(decode0_c_io_op[0]),
+    .c_dbus_adr_sel(decode0_c_dbus_addr_sel),
+    .c_dbus_out_sel(decode0_c_dbus_out_sel),
+    .c_mem_out_sel(decode0_c_mem_out_sel),
+    .mem_to_reg_in(operand0_mem_to_reg_out),
+    //Outputs
+    .mem_output(memory0_mem_output),
+    .dbus_out(memory0_dbus_out),
+    .adr(memory0_adr),
+    .ram_re(memory0_ram_re),
+    .ram_we(memory0_ram_we),
+    .io_re(memory0_io_re),
+    .io_we(memory0_io_we));
+  
+    fetch  fetch0(
+    //Inputs
+    .Z(operand0_Z),
+    .rampz0_in(operand0_rampz),
+    .inst(inst),
+    .c_pc_next(decode0_c_pc_next),
+    .c_pc_stall(decode0_c_pc_stall),
+    .ireset(ireset),
+    .c_imem_addr_sel(decode0_c_imem_addr_sel),
+    .pc_plus_offset(execute0_pc_plus_offset),
+    .branch_taken(execute0_branch_taken),
+    .temp_in(operand0_temp),
+    .is_32_in(decode0_is_32_bit),
+    .clk(cp2),
+    //Outputs
+    .addr(fetch0_addr));
+  
+    decode  decode0(
+    //Inputs
+    .inst_in(inst),
+    .branch_taken_in(execute0_branch_taken),
+    .clk(cp2),
+    .rst(ireset),
+    //Outputs
+    .is_32_bit(decode0_is_32_bit),
+    .c_new_sreg_sel(decode0_c_new_sreg_sel),
+    .c_imem_addr_sel(decode0_c_imem_addr_sel),
+    .c_adiw_phase(decode0_c_adiw_phase),
+    .c_ram_adr_sel(decode0_c_ram_adr_sel),
+    .c_sp_op(decode0_c_sp_op),
+    .c_io_op(decode0_c_io_op),
+    .c_rd_rr_sel(decode0_c_rd_rr_sel),
+    .c_branch_mode(decode0_c_branch_mode),
+    .c_mem_out_sel(decode0_c_mem_out_sel),
+    .c_alu_a_sel(decode0_c_alu_a_sel),
+    .c_dbus_out_sel(decode0_c_dbus_out_sel),
+    .c_rh_op(decode0_c_rh_op),
+    .c_pc_next(decode0_c_pc_next),
+    .c_ex_out_sel(decode0_c_ex_out_sel),
+    .c_rampz_inc(decode0_c_rampz_inc),
+    .c_rh_sel(decode0_c_rh_sel),
+    .c_alu_op(decode0_c_alu_op),
+    .c_pc_stall(decode0_c_pc_stall),
+    .c_alu_b_sel(decode0_c_alu_b_sel),
+    .c_imm_type(decode0_c_imm_type),
+    .c_flags_mask(decode0_c_flags_mask),
+    .c_pc_offset_mode(decode0_c_pc_offset_mode),
+    .c_dbus_addr_sel(decode0_c_dbus_addr_sel),
+    .c_rd_w_en(decode0_c_rd_w_en),
+    .c_ram_op(decode0_c_ram_op));
+  
+    assign pc = fetch0_addr;
+    assign adr = memory0_adr;
+    assign iore = memory0_io_re;
+    assign iowe = memory0_io_we;
+    assign ramadr = operand0_ram_addr;
+    assign ramre = memory0_ram_re;
+    assign ramwe = memory0_ram_we;
+    assign dbusout = memory0_dbus_out;
+    assign irqack = ;
+    assign arqackar = ;
+    assign sleepi = ;
+    assign irqok = ;
+    assign globint = ;
+    assign wdri = ;
+
+    endmodule
+  // ----decode.v----
+    module decode(inst_in,branch_taken_in,clk,rst,is_32_bit,c_new_sreg_sel,c_imem_addr_sel,c_adiw_phase,c_ram_adr_sel,c_sp_op,c_io_op,c_rd_rr_sel,c_branch_mode,c_mem_out_sel,c_alu_a_sel,c_dbus_out_sel,c_rh_op,c_pc_next,c_ex_out_sel,c_rampz_inc,c_rh_sel,c_alu_op,c_pc_stall,c_alu_b_sel,c_imm_type,c_flags_mask,c_pc_offset_mode,c_dbus_addr_sel,c_rd_w_en,c_ram_op);
+    input [15:0] inst_in;
+    input branch_taken_in;
+    input clk;
+    input rst;
+    output is_32_bit;
+    output c_new_sreg_sel;
+    output [1:0] c_imem_addr_sel;
+    output c_adiw_phase;
+    output [2:0] c_ram_adr_sel;
+    output [1:0] c_sp_op;
+    output [1:0] c_io_op;
+    output [1:0] c_rd_rr_sel;
+    output c_branch_mode;
+    output [1:0] c_mem_out_sel;
+    output [1:0] c_alu_a_sel;
+    output [1:0] c_dbus_out_sel;
+    output [1:0] c_rh_op;
+    output [2:0] c_pc_next;
+    output c_ex_out_sel;
+    output c_rampz_inc;
+    output [1:0] c_rh_sel;
+    output [3:0] c_alu_op;
+    output c_pc_stall;
+    output c_alu_b_sel;
+    output [3:0] c_imm_type;
+    output [7:0] c_flags_mask;
+    output c_pc_offset_mode;
+    output [1:0] c_dbus_addr_sel;
+    output c_rd_w_en;
+    output [1:0] c_ram_op;
+    wire control0_c_new_sreg_sel;
+    wire [1:0] control0_c_imem_addr_sel;
+    wire control0_c_adiw_phase;
+    wire [1:0] control0_c_sp_op;
+    wire [2:0] control0_c_ram_adr_sel;
+    wire [1:0] control0_c_io_op;
+    wire [1:0] control0_c_ram_op;
+    wire control0_c_rd_w_en;
+    wire [1:0] control0_c_dbus_addr_sel;
+    wire control0_c_pc_offset_mode;
+    wire [7:0] control0_c_flags_mask;
+    wire [2:0] control0_c_imm_type;
+    wire control0_c_alu_b_sel;
+    wire control0_c_pc_stall;
+    wire [3:0] control0_c_alu_op;
+    wire [1:0] control0_c_rh_sel;
+    wire control0_c_rampz_inc;
+    wire control0_c_ex_out_sel;
+    wire [2:0] control0_c_pc_next;
+    wire [1:0] control0_c_rh_op;
+    wire [1:0] control0_c_dbus_out_sel;
+    wire [1:0] control0_c_alu_a_sel;
+    wire control0_c_mem_out_sel;
+    wire control0_c_branch_mode;
+    wire [1:0] control0_c_rd_rr_sel;
+    wire [1:0] control0_c_next_state;
+    wire control0_c_skip;
+    wire [15:0] inst_latch_q;
+    wire [1:0] state_reg_q;
+    wire is_state_zero_result;
+    wire [15:0] which_inst_out;
+    wire [1:0] skip_mux_out;
+    wire is_inst_32_bit_is_32_bit;
+    
+    control  control0(
+    //Inputs
+    .inst(which_inst_out),
+    .state(state_reg_q),
+    //Outputs
+    .c_new_sreg_sel(control0_c_new_sreg_sel),
+    .c_imem_addr_sel(control0_c_imem_addr_sel),
+    .c_adiw_phase(control0_c_adiw_phase),
+    .c_sp_op(control0_c_sp_op),
+    .c_ram_adr_sel(control0_c_ram_adr_sel),
+    .c_io_op(control0_c_io_op),
+    .c_ram_op(control0_c_ram_op),
+    .c_rd_w_en(control0_c_rd_w_en),
+    .c_dbus_addr_sel(control0_c_dbus_addr_sel),
+    .c_pc_offset_mode(control0_c_pc_offset_mode),
+    .c_flags_mask(control0_c_flags_mask),
+    .c_imm_type(control0_c_imm_type),
+    .c_alu_b_sel(control0_c_alu_b_sel),
+    .c_pc_stall(control0_c_pc_stall),
+    .c_alu_op(control0_c_alu_op),
+    .c_rh_sel(control0_c_rh_sel),
+    .c_rampz_inc(control0_c_rampz_inc),
+    .c_ex_out_sel(control0_c_ex_out_sel),
+    .c_pc_next(control0_c_pc_next),
+    .c_rh_op(control0_c_rh_op),
+    .c_dbus_out_sel(control0_c_dbus_out_sel),
+    .c_alu_a_sel(control0_c_alu_a_sel),
+    .c_mem_out_sel(control0_c_mem_out_sel),
+    .c_branch_mode(control0_c_branch_mode),
+    .c_rd_rr_sel(control0_c_rd_rr_sel),
+    .c_next_state(control0_c_next_state),
+    .c_skip(control0_c_skip));
+  
+    latch #(16) inst_latch(
+    //Inputs
+    .d(inst_in),
+    .en(is_state_zero_result),
+    .clk(clk),
+    .rst(rst),
+    //Outputs
+    .q(inst_latch_q));
+  
+    register #(2) state_reg(
+    //Inputs
+    .d(skip_mux_out),
+    .clk(clk),
+    .rst(rst),
+    //Outputs
+    .q(state_reg_q));
+  
+    is_zero #(2) is_state_zero(
+    //Inputs
+    .d(state_reg_q),
+    //Outputs
+    .result(is_state_zero_result));
+  
+    mux2 #(16) which_inst(
+    //Inputs
+    .i0(inst_latch_q),
+    .i1(inst_in),
+    .sel(is_state_zero_result),
+    //Outputs
+    .out(which_inst_out));
+  
+    mux2 #(2) skip_mux(
+    //Inputs
+    .i0(0),
+    .i1(control0_c_next_state),
+    .sel(control0_c_skip&amp;branch_taken_in),
+    //Outputs
+    .out(skip_mux_out));
+  
+    is_32_bit  is_inst_32_bit(
+    //Inputs
+    .inst_in(inst_in),
+    //Outputs
+    .is_32_bit(is_inst_32_bit_is_32_bit));
+  
+    assign is_32_bit = is_inst_32_bit_is_32_bit;
+    assign c_new_sreg_sel = control0_c_new_sreg_sel;
+    assign c_imem_addr_sel = control0_c_imem_addr_sel;
+    assign c_adiw_phase = control0_c_adiw_phase;
+    assign c_ram_adr_sel = control0_c_ram_adr_sel;
+    assign c_sp_op = control0_c_sp_op;
+    assign c_io_op = control0_c_io_op;
+    assign c_rd_rr_sel = control0_c_rd_rr_sel;
+    assign c_branch_mode = control0_c_branch_mode;
+    assign c_mem_out_sel = control0_c_mem_out_sel;
+    assign c_alu_a_sel = control0_c_alu_a_sel;
+    assign c_dbus_out_sel = control0_c_dbus_out_sel;
+    assign c_rh_op = control0_c_rh_op;
+    assign c_pc_next = control0_c_pc_next;
+    assign c_ex_out_sel = control0_c_ex_out_sel;
+    assign c_rampz_inc = control0_c_rampz_inc;
+    assign c_rh_sel = control0_c_rh_sel;
+    assign c_alu_op = control0_c_alu_op;
+    assign c_pc_stall = control0_c_pc_stall;
+    assign c_alu_b_sel = control0_c_alu_b_sel;
+    assign c_imm_type = control0_c_imm_type;
+    assign c_flags_mask = control0_c_flags_mask;
+    assign c_pc_offset_mode = control0_c_pc_offset_mode;
+    assign c_dbus_addr_sel = control0_c_dbus_addr_sel;
+    assign c_rd_w_en = control0_c_rd_w_en;
+    assign c_ram_op = control0_c_ram_op;
+
+    endmodule
+  // ----operand.v----
+    module operand(inst_in,c_rd_rr_sel,c_adiw_phase,c_rd_w_en,c_ram_op,c_ram_addr_sel,c_rh_sel,c_imm_type_in,c_rampz_inc,c_sp_op,c_rh_op,mem_out_in,dbus_adr,io_re,io_we,dbus_out,dbusin_ext,sreg_in,clk,rst,rampz,imm_out,rd_out,rr_out,sreg_out,Z,temp,dbusin_int,ram_addr,mem_to_reg_out);
+    input [15:0] inst_in;
+    input c_rd_rr_sel;
+    input c_adiw_phase;
+    input c_rd_w_en;
+    input [1:0] c_ram_op;
+    input [2:0] c_ram_addr_sel;
+    input [1:0] c_rh_sel;
+    input [2:0] c_imm_type_in;
+    input c_rampz_inc;
+    input [1:0] c_sp_op;
+    input [1:0] c_rh_op;
+    input [7:0] mem_out_in;
+    input [5:0] dbus_adr;
+    input io_re;
+    input io_we;
+    input [7:0] dbus_out;
+    input [7:0] dbusin_ext;
+    input [7:0] sreg_in;
+    input clk;
+    input rst;
+    output rampz;
+    output [7:0] imm_out;
+    output [7:0] rd_out;
+    output [7:0] rr_out;
+    output [7:0] sreg_out;
+    output [15:0] Z;
+    output [7:0] temp;
+    output [7:0] dbusin_int;
+    output [15:0] ram_addr;
+    output mem_to_reg_out;
+    wire [4:0] rr_mux_out;
+    wire [7:0] rf_rd_out;
+    wire [7:0] rf_rr_out;
+    wire [15:0] rf_rh_out;
+    wire [15:0] rf_Z;
+    wire [4:0] rd_st_mux_out;
+    wire [4:0] rr_ld_mux_out;
+    wire wr_en_mux_out;
+    wire [4:0] swap_rd_rr_mux_out;
+    wire [7:0] temp_q;
+    wire [7:0] imm_prep0_imm;
+    wire [7:0] io_reg_file_sreg;
+    wire [7:0] io_reg_file_spl;
+    wire [7:0] io_reg_file_sph;
+    wire io_reg_file_rampz;
+    wire [7:0] io_reg_file_dbusin_int;
+    wire [15:0] add_q_output;
+    wire mem_to_reg_result;
+    wire [4:0] rd_mux_out;
+    wire [15:0] mem_mux_out;
+    
+    mux2 #(5) rr_mux(
+    //Inputs
+    .i0({inst_in[9],inst_in[3:0]}),
+    .i1({1,inst_in[3:0]}),
+    .sel(c_rd_rr_sel),
+    //Outputs
+    .out(rr_mux_out));
+  
+    reg_file  rf(
+    //Inputs
+    .rd_sel(rd_st_mux_out),
+    .rr_sel(rr_ld_mux_out),
+    .wr_en(wr_en_mux_out),
+    .rh_sel(c_rh_sel),
+    .rd_in(mem_out_in),
+    .rh_op(c_rh_op),
+    .clk(clk),
+    .rst(rst),
+    //Outputs
+    .rd_out(rf_rd_out),
+    .rr_out(rf_rr_out),
+    .rh_out(rf_rh_out),
+    .Z(rf_Z));
+  
+    mux2 #(5) rd_st_mux(
+    //Inputs
+    .i0(rd_mux_out),
+    .i1(add_q_output[4:0]),
+    .sel(c_ram_op[0]),
+    //Outputs
+    .out(rd_st_mux_out));
+  
+    mux2 #(5) rr_ld_mux(
+    //Inputs
+    .i0(swap_rd_rr_mux_out),
+    .i1(mem_mux_out[4:0]),
+    .sel(c_ram_op[1]),
+    //Outputs
+    .out(rr_ld_mux_out));
+  
+    mux2 #(1) wr_en_mux(
+    //Inputs
+    .i0(c_rd_w_en),
+    .i1(mem_to_reg_result),
+    .sel(c_ram_op[0]),
+    //Outputs
+    .out(wr_en_mux_out));
+  
+    mux2 #(5) swap_rd_rr_mux(
+    //Inputs
+    .i0(rd_mux_out),
+    .i1(rr_mux_out),
+    .sel(c_ram_op[0]),
+    //Outputs
+    .out(swap_rd_rr_mux_out));
+  
+    register #(8) temp(
+    //Inputs
+    .d(mem_out_in),
+    .clk(clk),
+    .rst(rst),
+    //Outputs
+    .q(temp_q));
+  
+    imm_prep  imm_prep0(
+    //Inputs
+    .c_imm_type(c_imm_type_in),
+    .inst_in(inst_in),
+    //Outputs
+    .imm(imm_prep0_imm));
+  
+    loc_io_reg_file  io_reg_file(
+    //Inputs
+    .c_rampz0_inc(c_rampz_inc),
+    .dbusin(0dbusin_ext),
+    .dbus_adr(dbus_adr),
+    .sreg_in(sreg_in),
+    .dbus_out(dbus_out),
+    .sp_op(c_sp_op),
+    .io_op({io_re,io_we}),
+    .clk(clk),
+    .rst(rst),
+    //Outputs
+    .sreg(io_reg_file_sreg),
+    .spl(io_reg_file_spl),
+    .sph(io_reg_file_sph),
+    .rampz(io_reg_file_rampz),
+    .dbusin_int(io_reg_file_dbusin_int));
+  
+    z_adder  add_q(
+    //Inputs
+    .i0(rf_rh_out),
+    .i1(imm_prep0_imm),
+    //Outputs
+    .output(add_q_output));
+  
+    is_zero #(11) mem_to_reg(
+    //Inputs
+    .d(mem_mux_out[15:5]),
+    //Outputs
+    .result(mem_to_reg_result));
+  
+    mux4 #(5) rd_mux(
+    //Inputs
+    .i0({11,inst_in[5:4],c_adiw_phase}),
+    .i1(inst_in[8:4]),
+    .i2({1,inst_in[7:4]}),
+    .i3(0),
+    .sel(c_rd_rr_sel),
+    //Outputs
+    .out(rd_mux_out));
+  
+    mux8 #(16) mem_mux(
+    //Inputs
+    .i0(inst_in),
+    .i1(rf_rh_out),
+    .i2({io_reg_file_sph,io_reg_file_spl}),
+    .i3(add_q_output),
+    .i4({~inst_in[8],inst_in[8],inst_in[10],inst_in[9],inst_in[3:0]}),
+    .i5(),
+    .i6(),
+    .i7(),
+    .sel(c_ram_addr_sel),
+    //Outputs
+    .out(mem_mux_out));
+  
+    assign rampz = io_reg_file_rampz;
+    assign imm_out = imm_prep0_imm;
+    assign rd_out = rf_rd_out;
+    assign rr_out = rf_rr_out;
+    assign sreg_out = io_reg_file_sreg;
+    assign Z = rf_Z;
+    assign temp = temp_q;
+    assign dbusin_int = io_reg_file_dbusin_int;
+    assign ram_addr = mem_mux_out;
+    assign mem_to_reg_out = mem_to_reg_result;
+
+    endmodule
+  // ----execute.v----
+    module execute(inst_in,imm_in,rd_in,rr_in,sreg_in,Z,temp,c_alu_a_sel,pc_in,c_branch_mode,c_alu_b_sel,c_flags_mask,c_alu_op,c_pc_offset_mode,c_new_sreg_sel,c_ex_out,ex_out,new_sreg,pc_plus_offset,branch_taken);
+    input [15:0] inst_in;
+    input [7:0] imm_in;
+    input [7:0] rd_in;
+    input [7:0] rr_in;
+    input [7:0] sreg_in;
+    input [15:0] Z;
+    input [7:0] temp;
+    input [1:0] c_alu_a_sel;
+    input [15:0] pc_in;
+    input c_branch_mode;
+    input c_alu_b_sel;
+    input [7:0] c_flags_mask;
+    input [3:0] c_alu_op;
+    input c_pc_offset_mode;
+    input c_new_sreg_sel;
+    input c_ex_out;
+    output [7:0] ex_out;
+    output [7:0] new_sreg;
+    output [15:0] pc_plus_offset;
+    output branch_taken;
+    wire [7:0] alu0_result;
+    wire [6:0] alu0_flags;
+    wire [7:0] output_mux_out;
+    wire [7:0] z_mux_out;
+    wire [7:0] sreg_mux_out;
+    wire [7:0] sreg_compute_output;
+    wire [15:0] pc_offset_comp_pc_plus_offset;
+    wire [7:0] aluB_mux_out;
+    wire [7:0] aluA_mux_out;
+    
+    alu  alu0(
+    //Inputs
+    .A(aluA_mux_out),
+    .B(aluB_mux_out),
+    .op(c_alu_op),
+    .T(sreg_in[7]),
+    .C(sreg_in[0]),
+    //Outputs
+    .result(alu0_result),
+    .flags(alu0_flags));
+  
+    mux2 #(8) output_mux(
+    //Inputs
+    .i0(z_mux_out),
+    .i1(alu0_result),
+    .sel(c_ex_out),
+    //Outputs
+    .out(output_mux_out));
+  
+    mux2 #(8) z_mux(
+    //Inputs
+    .i0(inst_in[15:8]),
+    .i1(inst_in[7:0]),
+    .sel(Z[0]),
+    //Outputs
+    .out(z_mux_out));
+  
+    mux2 #(8) sreg_mux(
+    //Inputs
+    .i0(alu0_result),
+    .i1(sreg_compute_output),
+    .sel(c_new_sreg_sel),
+    //Outputs
+    .out(sreg_mux_out));
+  
+    bitwise_mux  sreg_compute(
+    //Inputs
+    .i0({0,alu0_flags}),
+    .i1(sreg_in),
+    .mask(c_flags_mask),
+    //Outputs
+    .output(sreg_compute_output));
+  
+    offset_comp  pc_offset_comp(
+    //Inputs
+    .pc(pc_in),
+    .inst(inst_in),
+    .c_pc_offset_mode(c_pc_offset_mode),
+    //Outputs
+    .pc_plus_offset(pc_offset_comp_pc_plus_offset));
+  
+    mux2 #(8) aluB_mux(
+    //Inputs
+    .i0(rr_in),
+    .i1(imm_in),
+    .sel(c_alu_b_sel),
+    //Outputs
+    .out(aluB_mux_out));
+  
+    mux4 #(8) aluA_mux(
+    //Inputs
+    .i0(rd_in),
+    .i1(sreg_in),
+    .i2(temp),
+    .i3(0),
+    .sel(c_alu_a_sel),
+    //Outputs
+    .out(aluA_mux_out));
+  
+    assign ex_out = output_mux_out;
+    assign new_sreg = sreg_mux_out;
+    assign pc_plus_offset = pc_offset_comp_pc_plus_offset;
+    assign branch_taken = c_branch_mode~^alu0_flags[1];
+
+    endmodule
+  // ----memory.v----
+    module memory(ex_out,dbus_in,imm_in,ram_addr_in,c_ram_re,c_ram_we,c_io_re,c_io_we,c_dbus_adr_sel,c_dbus_out_sel,c_mem_out_sel,mem_to_reg_in,mem_output,dbus_out,adr,ram_re,ram_we,io_re,io_we);
+    input [7:0] ex_out;
+    input [7:0] dbus_in;
+    input [7:0] imm_in;
+    input [15:0] ram_addr_in;
+    input c_ram_re;
+    input c_ram_we;
+    input c_io_re;
+    input c_io_we;
+    input [1:0] c_dbus_adr_sel;
+    input [1:0] c_dbus_out_sel;
+    input c_mem_out_sel;
+    input mem_to_reg_in;
+    output [7:0] mem_output;
+    output [7:0] dbus_out;
+    output [5:0] adr;
+    output ram_re;
+    output ram_we;
+    output io_re;
+    output io_we;
+    wire [7:0] mem_mux_out;
+    wire [7:0] dbus_mux_out;
+    wire [5:0] adr_mux_out;
+    
+    mux2 #(8) mem_mux(
+    //Inputs
+    .i0(dbus_in),
+    .i1(ex_out),
+    .sel(c_mem_out_sel|mem_to_reg_in),
+    //Outputs
+    .out(mem_mux_out));
+  
+    mux4 #(8) dbus_mux(
+    //Inputs
+    .i0(),
+    .i1(),
+    .i2(ex_out),
+    .i3(),
+    .sel(c_dbus_out_sel),
+    //Outputs
+    .out(dbus_mux_out));
+  
+    mux4 #(6) adr_mux(
+    //Inputs
+    .i0(imm_in[5:0]),
+    .i1({1,imm_in[4:0]}),
+    .i2({ram_addr_in[6],ram_addr_in[4:0]}),
+    .i3(),
+    .sel(c_dbus_adr_sel),
+    //Outputs
+    .out(adr_mux_out));
+  
+    assign mem_output = mem_mux_out;
+    assign dbus_out = dbus_mux_out;
+    assign adr = adr_mux_out;
+    assign ram_re = ;
+    assign ram_we = ;
+    assign io_re = c_io_re|((ram_addr_in[15:7]==0)&amp;(ram_addr_in[6]^ram_addr_in[5])&amp;c_ram_re);
+    assign io_we = c_io_we|((ram_addr_in[15:7]==0)&amp;(ram_addr_in[6]^ram_addr_in[5])&amp;c_ram_we);
+
+    endmodule
+  // ----mux2.v----
+    module mux2(i0,i1,sel,out);
+    input [-1:0] i0;
+    input [-1:0] i1;
+    input sel;
+    output [-1:0] out;
+    
+    assign out = ;
+
+    endmodule
+  // ----mux4.v----
+    module mux4(i0,i1,i2,i3,sel,out);
+    input [-1:0] i0;
+    input [-1:0] i1;
+    input [-1:0] i2;
+    input [-1:0] i3;
+    input [1:0] sel;
+    output [-1:0] out;
+    
+    assign out = ;
+
+    endmodule
+  // ----latch.v----
+    module latch(d,en,clk,rst,q);
+    input [-1:0] d;
+    input en;
+    input clk;
+    input rst;
+    output [-1:0] q;
+    
+    assign q = ;
+
+    endmodule
+  // ----register.v----
+    module register(d,clk,rst,q);
+    input [-1:0] d;
+    input clk;
+    input rst;
+    output [-1:0] q;
+    
+    assign q = ;
+
+    endmodule
+  // ----is_zero.v----
+    module is_zero(d,result);
+    input [-1:0] d;
+    output result;
+    
+    assign result = (d==0);
+
+    endmodule
+  // ----reg_file.v----
+    module reg_file(rd_sel,rr_sel,wr_en,rh_sel,rd_in,rh_op,clk,rst,rd_out,rr_out,rh_out,Z);
+    input [4:0] rd_sel;
+    input [4:0] rr_sel;
+    input wr_en;
+    input [1:0] rh_sel;
+    input [7:0] rd_in;
+    input [1:0] rh_op;
+    input clk;
+    input rst;
+    output [7:0] rd_out;
+    output [7:0] rr_out;
+    output [15:0] rh_out;
+    output [15:0] Z;
+    
+    assign rd_out = ;
+    assign rr_out = ;
+    assign rh_out = ;
+    assign Z = ;
+
+    endmodule
+  // ----imm_prep.v----
+    module imm_prep(c_imm_type,inst_in,imm);
+    input [2:0] c_imm_type;
+    input [15:0] inst_in;
+    output [7:0] imm;
+    
+    assign imm = ;
+
+    endmodule
+  // ----loc_io_reg_file.v----
+    module loc_io_reg_file(c_rampz0_inc,dbusin,dbus_adr,sreg_in,dbus_out,sp_op,io_op,clk,rst,sreg,spl,sph,rampz,dbusin_int);
+    input c_rampz0_inc;
+    input [7:0] dbusin;
+    input [5:0] dbus_adr;
+    input [7:0] sreg_in;
+    input [7:0] dbus_out;
+    input [1:0] sp_op;
+    input [1:0] io_op;
+    input clk;
+    input rst;
+    output [7:0] sreg;
+    output [7:0] spl;
+    output [7:0] sph;
+    output rampz;
+    output [7:0] dbusin_int;
+    
+    assign sreg = ;
+    assign spl = ;
+    assign sph = ;
+    assign rampz = ;
+    assign dbusin_int = ;
+
+    endmodule
+  // ----z_adder.v----
+    module z_adder(i0,i1,output);
+    input [15:0] i0;
+    input [7:0] i1;
+    output [15:0] output;
+    
+    assign output = ;
+
+    endmodule
+  // ----alu.v----
+    module alu(A,B,op,T,C,result,flags);
+    input [7:0] A;
+    input [7:0] B;
+    input [3:0] op;
+    input T;
+    input C;
+    output [7:0] result;
+    output [6:0] flags;
+    
+    assign result = ;
+    assign flags = ;
+
+    endmodule
+  // ----bitwise_mux.v----
+    module bitwise_mux(i0,i1,mask,output);
+    input [7:0] i0;
+    input [7:0] i1;
+    input [7:0] mask;
+    output [7:0] output;
+    
+    assign output = ;
+
+    endmodule
+  // ----offset_comp.v----
+    module offset_comp(pc,inst,c_pc_offset_mode,pc_plus_offset);
+    input [15:0] pc;
+    input [15:0] inst;
+    input c_pc_offset_mode;
+    output [15:0] pc_plus_offset;
+    
+    assign pc_plus_offset = ;
+
+    endmodule
+  // ----fetch.v----
+    module fetch(Z,rampz0_in,inst,c_pc_next,c_pc_stall,ireset,c_imem_addr_sel,pc_plus_offset,branch_taken,temp_in,is_32_in,clk,addr);
+    input [15:0] Z;
+    input rampz0_in;
+    input [15:0] inst;
+    input [1:0] c_pc_next;
+    input c_pc_stall;
+    input ireset;
+    input [1:0] c_imem_addr_sel;
+    input [15:0] pc_plus_offset;
+    input branch_taken;
+    input [7:0] temp_in;
+    input is_32_in;
+    input clk;
+    output [15:0] addr;
+    wire [15:0] pc_latch_q;
+    wire [15:0] pc_stall_out;
+    wire [15:0] branch_mux_out;
+    wire [15:0] pc_increment_output;
+    wire [15:0] next_pc_mux_out;
+    wire [15:0] pc_skip_out;
+    wire [15:0] addr_mux_out;
+    
+    latch #(16) pc_latch(
+    //Inputs
+    .d(next_pc_mux_out),
+    .en(ireset),
+    .clk(clk),
+    .rst(ireset),
+    //Outputs
+    .q(pc_latch_q));
+  
+    mux2 #(16) pc_stall(
+    //Inputs
+    .i0(pc_latch_q),
+    .i1(pc_increment_output),
+    .sel(c_pc_stall),
+    //Outputs
+    .out(pc_stall_out));
+  
+    mux2 #(16) branch_mux(
+    //Inputs
+    .i0(pc_stall_out),
+    .i1(pc_plus_offset),
+    .sel(branch_taken),
+    //Outputs
+    .out(branch_mux_out));
+  
+    inc #(16) pc_increment(
+    //Inputs
+    .input(pc_latch_q),
+    //Outputs
+    .output(pc_increment_output));
+  
+    mux8 #(16) next_pc_mux(
+    //Inputs
+    .i0(pc_stall_out),
+    .i1(pc_plus_offset),
+    .i2(branch_mux_out),
+    .i3(inst),
+    .i4(temp_in),
+    .i5(),
+    .i6(pc_skip_out),
+    .i7({0000,inst[11:0]}),
+    .sel(c_pc_next),
+    //Outputs
+    .out(next_pc_mux_out));
+  
+    mux2 #(16) pc_skip(
+    //Inputs
+    .i0(pc_latch_q+1),
+    .i1(pc_latch_q+2),
+    .sel(is_32_in),
+    //Outputs
+    .out(pc_skip_out));
+  
+    mux4 #(16) addr_mux(
+    //Inputs
+    .i0(pc_latch_q),
+    .i1({0,Z[15:1]}),
+    .i2({rampz0_in,Z[15:1]}),
+    .i3(),
+    .sel(c_imem_addr_sel),
+    //Outputs
+    .out(addr_mux_out));
+  
+    assign addr = addr_mux_out;
+
+    endmodule
+  // ----inc.v----
+    module inc(input,output);
+    input [-1:0] input;
+    output [-1:0] output;
+    
+    assign output = ;
+
+    endmodule
+  // ----is_32_bit.v----
+    module is_32_bit(inst_in,is_32_bit);
+    input [15:0] inst_in;
+    output is_32_bit;
+    
+    assign is_32_bit = ;
+
+    endmodule
+  // ----mux8.v----
+    module mux8(i0,i1,i2,i3,i4,i5,i6,i7,sel,out);
+    input [-1:0] i0;
+    input [-1:0] i1;
+    input [-1:0] i2;
+    input [-1:0] i3;
+    input [-1:0] i4;
+    input [-1:0] i5;
+    input [-1:0] i6;
+    input [-1:0] i7;
+    input [2:0] sel;
+    output [-1:0] out;
+    
+    assign out = ;
+
+    endmodule
+  

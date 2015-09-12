@@ -1,0 +1,1807 @@
+<chip>
+<module_type name="control">
+  <in name="inst" width="16"/>
+  <in name="state" width="2"/>
+  <out name="c_new_sreg_sel" width="1"/>
+  <out name="c_imem_addr_sel" width="2"/>
+  <out name="c_adiw_phase" width="1"/>
+  
+  <out name="c_sp_op" width="2"/>
+<out name="c_ram_adr_sel" width="3"/>
+  
+  <out name="c_io_op" width="2"/>
+<out name="c_ram_op" width="2"/>
+  <out name="c_rd_w_en" width="1"/>
+  <out name="c_dbus_addr_sel" width="2"/>
+  <out name="c_pc_offset_mode" width="1"/>
+  <out name="c_flags_mask" width="8"/>
+  <out name="c_imm_type" width="3"/>
+  <out name="c_alu_b_sel" width="1"/>
+  <out name="c_pc_stall" width="1"/>
+  <out name="c_alu_op" width="4"/>
+  <out name="c_rh_sel" width="2"/>
+  <out name="c_rampz_inc" width="1"/>
+  <out name="c_ex_out_sel" width="1"/>
+  <out name="c_pc_next" width="3"/>
+  <out name="c_rh_op" width="2"/>
+  <out name="c_dbus_out_sel" width="2"/>
+  <out name="c_alu_a_sel" width="2"/>
+  <out name="c_mem_out_sel" width="1"/>
+  <out name="c_branch_mode" width="1"/>
+  <out name="c_rd_rr_sel" width="2"/>
+  <out name="c_next_state" width="2"/>
+<out name="c_skip" width="1"/>
+  
+</module_type>
+
+  <module_type name="Chip">
+    <in name="cp2" width="1" x="40" y="460"/>
+    <in name="ireset" width="1" x="40" y="500"/>
+    <in name="inst" width="16" x="340" y="160"/>
+    <in name="dbusin" width="8" x="40" y="740"/>
+    <in name="irqlines" width="23" x="40" y="580"/>
+    <out name="pc" width="16" x="340" y="220">
+      <conn target="pc">
+	<src pin="addr" mod="fetch0">
+<wp x="325" y="247.5"/>
+</src>
+      </conn>
+    </out>
+    <out name="adr" width="16" x="1820" y="840">
+      <conn target="adr">
+	<src pin="adr" mod="memory0" colour="cf3">
+	  <wp x="1645" y="227.5"/>
+	  <wp x="1645" y="867.5"/>
+	</src>
+      </conn>
+    </out>
+    <out name="iore" width="1" x="1820" y="780">
+      <conn target="iore">
+	<src pin="io_re" mod="memory0" colour="cf3">
+	  <wp x="1605" y="287.5"/>
+	  <wp x="1605" y="807.5"/>
+	</src>
+      </conn>
+    </out>
+    <out name="iowe" width="1" x="1740" y="820">
+      <conn target="iowe">
+	<src pin="io_we" mod="memory0" colour="cf3">
+	  <wp x="1585" y="307.5"/>
+	  <wp x="1585" y="847.5"/>
+	</src>
+      </conn>
+    </out>
+    <out name="ramadr" width="16" x="1740" y="280">
+
+      <conn target="ramadr">
+	<src pin="ram_addr" mod="operand0">
+	  <wp x="1005" y="347.5"/>
+	  <wp x="1005" y="567.5"/>
+	  <wp x="1685" y="567.5"/>
+	  <wp x="1685" y="307.5"/>
+	</src>
+      </conn>
+    </out>
+    <out name="ramre" width="1" x="1740" y="200">
+      <conn target="ramre">
+	<src pin="ram_re" mod="memory0"/>
+      </conn>
+    </out>
+    <out name="ramwe" width="1" x="1740" y="240">
+      <conn target="ramwe">
+	<src pin="ram_we" mod="memory0"/>
+      </conn>
+    </out>
+    <out name="dbusout" width="8" x="1740" y="760">
+      <conn target="dbusout">
+	<src pin="dbus_out" mod="memory0" colour="cf3">
+	  <wp x="1625" y="207.5"/>
+	  <wp x="1625" y="787.5"/>
+	  <wp x="1685" y="787.5"/>
+	</src>
+      </conn>
+    </out>
+    <out name="irqack" width="1" x="1740" y="460"/>
+    <out name="arqackar" width="5" x="1740" y="500"/>
+    <out name="sleepi" width="1" x="1740" y="600"/>
+    <out name="irqok" width="1" x="1740" y="540"/>
+    <out name="globint" width="1" x="1740" y="420"/>
+    <out name="wdri" width="1" x="1740" y="360"/>
+    
+    <module name="operand0" type="operand" x="820" y="160">
+
+      <conn target="dbusin_ext">
+	<src pin="dbusin" mod="dbusin" colour="cf3">
+	  <wp x="765" y="767.5"/>
+	  <wp x="765" y="507.5"/>
+	</src>
+      </conn>
+
+
+      
+      
+      
+      <conn target="io_re">
+	<src pin="io_re" mod="memory0" colour="cf3">
+	  <wp x="1605" y="287.5"/>
+	  <wp x="1605" y="807.5"/>
+	  <wp x="705" y="807.5"/>
+	  <wp x="705" y="447.5"/>
+	</src>
+      </conn>
+      <conn target="io_we">
+	<src pin="io_we" mod="memory0" colour="cf3">
+	  <wp x="1585" y="307.5"/>
+	  <wp x="1585" y="847.5"/>
+	  <wp x="725" y="847.5"/>
+	  <wp x="725" y="467.5"/>
+	</src>
+      </conn>
+      <conn target="dbus_out">
+	<src pin="dbus_out" mod="memory0" colour="cf3">
+	  <wp x="1625" y="207.5"/>
+	  <wp x="1625" y="787.5"/>
+	  <wp x="745" y="787.5"/>
+	  <wp x="745" y="487.5"/>
+	</src>
+      </conn>
+      <conn target="sreg_in">
+	<src pin="new_sreg" mod="execute0">
+	  <wp x="1285" y="207.5"/>
+	  <wp x="1285" y="647.5"/>
+	  <wp x="785" y="647.5"/>
+	  <wp x="785" y="607.5"/>
+	</src>
+      </conn>
+      <conn target="dbus_adr">
+	<src pin="adr" mod="memory0" colour="cf3">
+	  <wp x="1645" y="227.5"/>
+	  <wp x="1645" y="867.5"/>
+	  <wp x="685" y="867.5"/>
+	  <wp x="685" y="427.5"/>
+	</src>
+      </conn>
+      <conn target="mem_out_in">
+	<src pin="mem_output" mod="memory0">
+	  <wp x="1545" y="187.5"/>
+	  <wp x="1545" y="687.5"/>
+	  <wp x="665" y="687.5"/>
+	  <wp x="665" y="407.5"/>
+	</src>
+      </conn>
+    <conn target="inst_in">
+
+
+
+	
+      <src pin="inst" mod="inst">
+<wp x="425" y="147.5"/>
+<wp x="765" y="147.5"/>
+<wp x="765" y="187.5"/>
+</src>
+</conn>
+<conn target="c_rd_w_en">
+<src pin="c_rd_w_en" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_ram_op">
+<src pin="c_ram_op" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_rh_sel">
+<src pin="c_rh_sel" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_imm_type_in">
+<src pin="c_imm_type" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_rh_op">
+<src pin="c_rh_op" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_rampz_inc">
+<src pin="c_rampz_inc" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_sp_op">
+<src pin="c_sp_op" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_ram_addr_sel">
+<src pin="c_ram_adr_sel" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_rd_rr_sel">
+<src pin="c_rd_rr_sel" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_adiw_phase">
+<src pin="c_adiw_phase" mod="decode0" brief="1"/>
+</conn>
+<conn target="rst">
+<src pin="ireset" mod="ireset" brief="1"/>
+</conn>
+<conn target="clk">
+<src pin="cp2" mod="cp2" brief="1"/>
+</conn>
+</module>
+    <module name="execute0" type="execute" x="1100" y="160">
+
+      <conn target="sreg_in">
+	<src pin="sreg_out" mod="operand0">
+<wp x="1065" y="267.5"/>
+</src>
+      </conn>
+      <conn target="imm_in">
+	<src pin="imm_out" mod="operand0">
+	  <wp x="985" y="207.5"/>
+	  
+	</src>
+      </conn>
+      
+      
+      <conn target="rr_in">
+	<src pin="rr_out" mod="operand0"/>
+      </conn>
+      <conn target="rd_in">
+	<src pin="rd_out" mod="operand0"/>
+      </conn>
+      <conn target="temp">
+	<src pin="temp" mod="operand0">
+	  
+	  <wp x="985" y="307.5"/>
+	</src>
+      </conn>
+    <conn target="c_flags_mask">
+<src pin="c_flags_mask" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_alu_op">
+<src pin="c_alu_op" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_pc_offset_mode">
+<src pin="c_pc_offset_mode" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_alu_b_sel">
+<src pin="c_alu_b_sel" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_alu_a_sel">
+<src pin="c_alu_a_sel" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_branch_mode">
+<src pin="c_branch_mode" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_ex_out">
+<src pin="c_ex_out_sel" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_new_sreg_sel">
+<src pin="c_new_sreg_sel" mod="decode0" brief="1"/>
+</conn>
+<conn target="pc_in">
+<src pin="addr" mod="fetch0" brief="1"/>
+</conn>
+<conn target="Z">
+<src pin="Z" mod="operand0">
+
+<wp x="1045" y="287.5"/>
+</src>
+</conn>
+<conn target="inst_in">
+
+	
+      <src pin="inst" mod="inst">
+<wp x="425" y="147.5"/>
+<wp x="1085" y="147.5"/>
+<wp x="1085" y="187.5"/>
+</src>
+</conn>
+</module>
+    <module name="memory0" type="memory" x="1380" y="160">
+      <conn target="ex_out">
+	<src pin="ex_out" mod="execute0"/>
+      </conn>
+      <conn target="imm_in">
+	<src pin="imm_out" mod="operand0">
+	  <wp x="985" y="207.5"/>
+	  <wp x="985" y="107.5"/>
+	  <wp x="1305" y="107.5"/>
+	  <wp x="1305" y="227.5"/>
+	</src>
+      </conn>
+      <conn target="ram_addr_in">
+	<src pin="ram_addr" mod="operand0">
+	  <wp x="1005" y="347.5"/>
+	  <wp x="1005" y="567.5"/>
+	  <wp x="1305" y="567.5"/>
+	  <wp x="1305" y="247.5"/>
+	</src>
+      </conn>
+
+      
+      <conn target="dbus_in">
+
+	<src pin="dbusin_int" mod="operand0" colour="cf3">
+	  <wp x="965" y="767.5"/>
+	  <wp x="1325" y="767.5"/>
+	  <wp x="1325" y="207.5"/>
+	</src>
+      </conn>
+    <conn target="c_io_we">
+<src pin="c_io_op" mod="decode0" brief="1"/>
+ [0]</conn>
+<conn target="c_io_re">
+<src pin="c_io_op" mod="decode0" brief="1"/>
+ [1]</conn>
+
+<conn target="c_ram_re">
+<src pin="c_ram_op" mod="decode0" brief="1"/>
+[1]</conn>
+<conn target="c_ram_we">
+<src pin="c_ram_op" mod="decode0" brief="1"/>
+[0]</conn>
+<conn target="c_dbus_adr_sel">
+<src pin="c_dbus_addr_sel" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_dbus_out_sel">
+<src pin="c_dbus_out_sel" mod="decode0" brief="1"/>
+</conn>
+<conn target="mem_to_reg_in">
+<src pin="mem_to_reg_out" mod="operand0">
+<wp x="1025" y="367.5"/>
+<wp x="1025" y="527.5"/>
+<wp x="1345" y="527.5"/>
+<wp x="1345" y="407.5"/>
+</src>
+</conn>
+<conn target="c_mem_out_sel">
+	
+      <src pin="c_mem_out_sel" mod="decode0" brief="1"/>
+</conn>
+</module>
+    <module name="fetch0" type="fetch" x="180" y="160">
+      <conn target="inst">
+	<src pin="inst" mod="inst">
+	  <wp x="425" y="147.5"/>
+	  <wp x="165" y="147.5"/>
+	  <wp x="165" y="227.5"/>
+	</src>
+      </conn>
+      <conn target="pc_plus_offset">
+	<src pin="pc_plus_offset" mod="execute0">
+	  <wp x="1265" y="227.5"/>
+	  <wp x="1265" y="127.5"/>
+	  <wp x="145" y="127.5"/>
+	  <wp x="145" y="327.5"/>
+	</src>
+      </conn>
+      <conn target="branch_taken">
+	<src pin="branch_taken" mod="execute0">
+	  <wp x="1245" y="107.5"/>
+	  <wp x="1245" y="87.5"/>
+	  <wp x="105" y="87.5"/>
+	  <wp x="105" y="347.5"/>
+	</src>
+      </conn>
+      
+      <conn target="temp_in">
+	<src pin="temp" mod="operand0">
+	  <wp x="985" y="307.5"/>
+	  <wp x="985" y="747.5"/>
+	  <wp x="125" y="747.5"/>
+	  <wp x="125" y="367.5"/>
+	</src>
+      </conn>
+    <conn target="is_32_in">
+	
+      <src pin="is_32_bit" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_imem_addr_sel">
+<src pin="c_imem_addr_sel" mod="decode0" brief="1"/>
+</conn>
+<conn target="rampz0_in">
+<src pin="rampz" mod="operand0" brief="1">
+<wp x="965" y="67.5"/>
+<wp x="125" y="67.5"/>
+<wp x="125" y="207.5"/>
+</src>
+</conn>
+<conn target="c_pc_stall">
+<src pin="c_pc_stall" mod="decode0" brief="1"/>
+</conn>
+<conn target="c_pc_next">
+<src pin="c_pc_next" mod="decode0" brief="1"/>
+</conn>
+
+<conn target="ireset">
+<src pin="ireset" mod="ireset" brief="1"/>
+</conn>
+<conn target="clk">
+<src pin="cp2" mod="cp2" brief="1"/>
+</conn>
+<conn target="Z">
+<src pin="Z" mod="operand0" brief="1"/>
+</conn>
+</module>
+  <module name="decode0" type="decode" x="480" y="160">
+<conn target="inst_in">
+<src pin="inst" mod="inst"/>
+</conn>
+<conn target="branch_taken_in">
+<src pin="branch_taken" mod="execute0">
+<wp x="1245" y="87.5"/>
+<wp x="445" y="87.5"/>
+<wp x="445" y="207.5"/>
+</src>
+</conn>
+<conn target="clk">
+<src pin="cp2" mod="cp2" brief="1"/>
+</conn>
+<conn target="rst">
+<src pin="ireset" mod="ireset" brief="1"/>
+</conn>
+</module>
+</module_type>
+  <module_type name="decode">
+    <in name="inst_in" width="16" x="140" y="140"/>
+    
+    <module name="control0" type="control" x="1260" y="200">
+      
+
+      
+    <conn target="state">
+	
+      <src pin="q" mod="state_reg"/>
+</conn>
+<conn target="inst">
+
+	
+      <src pin="out" mod="which_inst"/>
+</conn>
+</module>
+    <module name="inst_latch" type="latch" x="720" y="280" param="16">
+
+      <conn target="en">
+	<src pin="result" mod="is_state_zero"/>
+      </conn>
+      <conn target="d">
+
+	<src pin="inst_in" mod="inst_in"/>
+      </conn>
+    <conn target="clk">
+<src pin="clk" mod="clk" brief="1"/>
+</conn>
+<conn target="rst">
+<src pin="rst" mod="rst" brief="1"/>
+</conn>
+</module>
+    <module name="state_reg" type="register" x="240" y="460" param="2">
+
+      <conn target="d">
+
+	<src pin="out" mod="skip_mux" brief="0">
+	  <wp x="1645" y="807.5"/>
+	  <wp x="205" y="807.5"/>
+	</src>
+      </conn>
+    <conn target="clk">
+<src pin="clk" mod="clk" brief="1"/>
+</conn>
+<conn target="rst">
+<src pin="rst" mod="rst" brief="1"/>
+</conn>
+</module>
+    <module name="is_state_zero" type="is_zero" x="420" y="420" param="2">
+      <conn target="d">
+	<src pin="q" mod="state_reg"/>
+      </conn>
+    </module>
+    <module name="which_inst" type="mux2" x="1000" y="280" param="16">
+      <conn target="i0">
+	<src pin="q" mod="inst_latch"/>
+      </conn>
+      <conn target="sel">
+	<src pin="result" mod="is_state_zero"/>
+      </conn>
+      <conn target="i1">
+	<src pin="inst_in" mod="inst_in"/>
+      </conn>
+    </module>
+    <module name="skip_mux" type="mux2" x="1480" y="820" param="2">
+      <conn target="i0" explode="1">
+0</conn>
+      
+      
+    <conn target="i1">
+	
+      <src pin="c_next_state" mod="control0"/>
+</conn>
+
+<conn target="sel">
+<src pin="c_skip" mod="control0"/>
+ &amp; <src pin="branch_taken_in" mod="branch_taken_in"/>
+</conn>
+</module>
+    <in name="branch_taken_in" width="1" x="100" y="920"/>
+    <module name="is_inst_32_bit" type="is_32_bit" x="660" y="100">
+      <conn target="inst_in">
+	<src pin="inst_in" mod="inst_in"/>
+      </conn>
+    </module>
+    <out name="is_32_bit" width="1" x="1700" y="100">
+      <conn target="answer">
+	<src pin="is_32_bit" mod="is_inst_32_bit"/>
+      </conn>
+    </out>
+  <cbox x="240" y="420" w="120" h="34" type="doc">
+Stores which phase are we in</cbox>
+<cbox x="1260" y="140" w="120" h="22" type="NOP">
+Set all controls to 0<assoc mod="control0"/>
+</cbox>
+<out name="c_new_sreg_sel" width="1" x="1500" y="220">
+<conn target="c_new_sreg_sel">
+<src pin="c_new_sreg_sel" mod="control0"/>
+</conn>
+</out>
+<out name="c_imem_addr_sel" width="2" x="1500" y="240">
+<conn target="c_imem_addr_sel">
+<src pin="c_imem_addr_sel" mod="control0"/>
+</conn>
+</out>
+<out name="c_adiw_phase" width="1" x="1500" y="260">
+<conn target="c_adiw_phase">
+<src pin="c_adiw_phase" mod="control0"/>
+</conn>
+</out>
+<out name="c_ram_adr_sel" width="3" x="1500" y="320">
+<conn target="c_ram_adr_sel">
+<src pin="c_ram_adr_sel" mod="control0"/>
+</conn>
+</out>
+<out name="c_sp_op" width="2" x="1500" y="340">
+<conn target="c_sp_op">
+<src pin="c_sp_op" mod="control0"/>
+</conn>
+</out>
+<out name="c_io_op" width="2" x="1500" y="280">
+<conn target="c_io_op">
+<src pin="c_io_op" mod="control0"/>
+</conn>
+</out>
+<out name="c_rd_rr_sel" width="2" x="1500" y="720">
+<conn target="c_rd_rr_sel">
+<src pin="c_rd_rr_sel" mod="control0"/>
+</conn>
+</out>
+<out name="c_branch_mode" width="1" x="1500" y="700">
+<conn target="c_branch_mode">
+<src pin="c_branch_mode" mod="control0"/>
+</conn>
+</out>
+<out name="c_mem_out_sel" width="2" x="1500" y="680">
+<conn target="c_mem_out_sel">
+<src pin="c_mem_out_sel" mod="control0"/>
+</conn>
+</out>
+<out name="c_alu_a_sel" width="2" x="1500" y="660">
+<conn target="c_alu_a_sel">
+<src pin="c_alu_a_sel" mod="control0"/>
+</conn>
+</out>
+<out name="c_dbus_out_sel" width="2" x="1500" y="640">
+<conn target="c_dbus_out_sel">
+<src pin="c_dbus_out_sel" mod="control0"/>
+</conn>
+</out>
+<out name="c_rh_op" width="2" x="1500" y="620">
+<conn target="c_rh_op">
+<src pin="c_rh_op" mod="control0"/>
+</conn>
+</out>
+<out name="c_pc_next" width="3" x="1500" y="600">
+<conn target="c_pc_next">
+<src pin="c_pc_next" mod="control0"/>
+</conn>
+</out>
+<out name="c_ex_out_sel" width="1" x="1500" y="580">
+<conn target="c_ex_out_sel">
+<src pin="c_ex_out_sel" mod="control0"/>
+</conn>
+</out>
+<out name="c_rampz_inc" width="1" x="1500" y="560">
+<conn target="c_rampz_inc">
+<src pin="c_rampz_inc" mod="control0"/>
+</conn>
+</out>
+<out name="c_rh_sel" width="2" x="1500" y="540">
+<conn target="c_rh_sel">
+<src pin="c_rh_sel" mod="control0"/>
+</conn>
+</out>
+<out name="c_alu_op" width="4" x="1500" y="520">
+<conn target="c_alu_op">
+<src pin="c_alu_op" mod="control0"/>
+</conn>
+</out>
+<out name="c_pc_stall" width="1" x="1500" y="500">
+<conn target="c_pc_stall">
+<src pin="c_pc_stall" mod="control0"/>
+</conn>
+</out>
+<out name="c_alu_b_sel" width="1" x="1500" y="480">
+<conn target="c_alu_b_sel">
+<src pin="c_alu_b_sel" mod="control0"/>
+</conn>
+</out>
+<out name="c_imm_type" width="4" x="1500" y="460">
+<conn target="c_imm_type">
+<src pin="c_imm_type" mod="control0"/>
+</conn>
+</out>
+<out name="c_flags_mask" width="8" x="1500" y="440">
+<conn target="c_flags_mask">
+<src pin="c_flags_mask" mod="control0"/>
+</conn>
+</out>
+<out name="c_pc_offset_mode" width="1" x="1500" y="420">
+<conn target="c_pc_offset_mode">
+<src pin="c_pc_offset_mode" mod="control0"/>
+</conn>
+</out>
+<out name="c_dbus_addr_sel" width="2" x="1500" y="400">
+<conn target="c_dbus_addr_sel">
+<src pin="c_dbus_addr_sel" mod="control0"/>
+</conn>
+</out>
+<out name="c_rd_w_en" width="1" x="1500" y="380">
+<conn target="c_rd_w_en">
+<src pin="c_rd_w_en" mod="control0"/>
+</conn>
+</out>
+<out name="c_ram_op" width="2" x="1500" y="360">
+<conn target="c_ram_op">
+<src pin="c_ram_op" mod="control0"/>
+</conn>
+</out>
+<in name="clk" width="1" x="40" y="340"/>
+<in name="rst" width="1" x="40" y="380"/>
+</module_type>
+  <module_type name="operand">
+
+
+
+    
+    <in name="inst_in" width="16" x="20" y="220"/>
+<in name="c_rd_rr_sel" width="1" x="20" y="280"/>
+    <in name="c_adiw_phase" width="1" x="20" y="340"/>
+    
+    <module name="rr_mux" type="mux2" x="280" y="380" param="5">
+      <conn target="i0" explode="1">
+{<src pin="inst_in" mod="inst_in" brief="0">
+	  <wp x="105" y="407.5"/>
+	</src>
+ 	[9],<src pin="inst_in" mod="inst_in" brief="0">
+	  <wp x="105" y="407.5"/>
+	</src>
+ 	[3:0]}</conn>
+      <conn target="i1" explode="1">
+	{1,<src pin="inst_in" mod="inst_in" brief="0">
+	  <wp x="105" y="427.5"/>
+	</src>
+	[3:0]}</conn>
+      <conn target="sel">
+	<src pin="c_rd_rr_sel" mod="c_rd_rr_sel" brief="1"/>
+      </conn>
+    </module>
+    <module name="rf" type="reg_file" x="1100" y="180">
+      <conn target="rd_sel">
+	<src pin="out" mod="rd_st_mux" brief="0">
+	  <wp x="1045" y="167.5"/>
+	  <wp x="1045" y="207.5"/>
+	</src>
+      </conn>
+      <conn target="rr_sel">
+	<src pin="out" mod="rr_ld_mux">
+	  <wp x="905" y="227.5"/>
+	</src>
+      </conn>
+      <conn target="wr_en">
+	<src pin="out" mod="wr_en_mux">
+	  <wp x="925" y="527.5"/>
+	  <wp x="925" y="247.5"/>
+	</src>
+      </conn>
+      
+      
+      
+      <conn target="rd_in">
+	<src pin="mem_out_in" mod="mem_out_in">
+	  <wp x="945" y="987.5"/>
+	  <wp x="945" y="287.5"/>
+	</src>
+      </conn>
+    <conn target="rh_sel">
+	
+      <src pin="c_rh_sel" mod="c_rh_sel" brief="1"/>
+</conn>
+<conn target="rh_op">
+<src pin="c_rh_op" mod="c_rh_op" brief="1"/>
+</conn>
+<conn target="clk">
+<src pin="clk" mod="clk" brief="1"/>
+</conn>
+<conn target="rst">
+<src pin="rst" mod="rst" brief="1"/>
+</conn>
+</module>
+    <module name="rd_st_mux" type="mux2" x="780" y="140" param="5">
+      
+      
+      <conn target="i1">
+	<src pin="output" mod="add_q" brief="1">
+	  <wp x="1345" y="67.5"/>
+	  <wp x="605" y="67.5"/>
+	</src>
+	[4:0]</conn>
+    <conn target="sel">
+<src pin="c_ram_op" mod="c_ram_op" brief="1"/>
+[0]</conn>
+<conn target="i0">
+	
+      <src pin="out" mod="rd_mux">
+<wp x="745" y="147.5"/>
+</src>
+</conn>
+</module>
+    <module name="rr_ld_mux" type="mux2" x="760" y="320" param="5">
+      
+      <conn target="i0">
+	<src pin="out" mod="swap_rd_rr_mux">
+	  <wp x="685" y="347.5"/>
+	  
+	</src>
+      </conn>
+      
+    <conn target="sel">
+<src pin="c_ram_op" mod="c_ram_op" brief="1"/>
+[1]</conn>
+<conn target="i1" explode="1">
+<src pin="out" mod="mem_mux">
+<wp x="1725" y="427.5"/>
+<wp x="605" y="427.5"/>
+<wp x="605" y="367.5"/>
+</src>
+ 	[4:0]</conn>
+</module>
+    <module name="wr_en_mux" type="mux2" x="760" y="500" param="1">
+      
+      <conn target="i0">
+	<src pin="c_rd_w_en" mod="c_rd_w_en" brief="1"/>
+      </conn>
+      <conn target="i1">
+	<src pin="result" mod="mem_to_reg">
+	  
+	</src>
+      </conn>
+    <conn target="sel" explode="1">
+<src pin="c_ram_op" mod="c_ram_op" brief="1"/>
+[0]</conn>
+</module>
+    <module name="swap_rd_rr_mux" type="mux2" x="540" y="160" param="5">
+      
+      
+      <conn target="i1">
+	<src pin="out" mod="rr_mux">
+	  <wp x="465" y="407.5"/>
+<wp x="465" y="207.5"/>
+	</src>
+      </conn>
+    <conn target="sel">
+<src pin="c_ram_op" mod="c_ram_op" brief="1"/>
+[0]</conn>
+<conn target="i0">
+	
+      <src pin="out" mod="rd_mux">
+<wp x="445" y="187.5"/>
+</src>
+</conn>
+</module>
+    
+    
+    <in name="c_rd_w_en" width="1" x="20" y="480"/>
+    <module name="temp" type="register" x="620" y="1060" param="8">
+      <conn target="d">
+	<src pin="mem_out_in" mod="mem_out_in">
+<wp x="585" y="987.5"/>
+</src>
+      </conn>
+    <conn target="clk">
+<src pin="clk" mod="clk" brief="1"/>
+</conn>
+<conn target="rst">
+<src pin="rst" mod="rst" brief="1"/>
+</conn>
+</module>
+    <module name="imm_prep0" type="imm_prep" x="1080" y="700">
+      <conn target="inst_in">
+	<src pin="inst_in" mod="inst_in" brief="1">
+	  <wp x="985" y="247.5"/>
+	</src>
+      </conn>
+      <conn target="c_imm_type">
+	<src pin="c_imm_type_in" mod="c_imm_type_in" brief="1"/>
+      </conn>
+    </module>
+    <module name="io_reg_file" type="loc_io_reg_file" x="1240" y="860">
+      
+      
+      <conn target="c_rampz0_inc">
+	<src pin="c_rampz_inc" mod="c_rampz_inc" brief="1"/>
+      </conn>
+      
+    <conn target="dbus_out">
+<src pin="dbus_out" mod="dbus_out" colour="cf3"/>
+</conn>
+
+
+<conn target="dbusin">
+0<src pin="dbusin_ext" mod="dbusin_ext" brief="1"/>
+</conn>
+<conn target="dbus_adr">
+<src pin="dbus_adr" mod="dbus_adr" colour="cf3"/>
+</conn>
+<conn target="sreg_in">
+<src pin="sreg_in" mod="sreg_in"/>
+</conn>
+<conn target="sp_op">
+<src pin="c_sp_op" mod="c_sp_op" brief="1"/>
+</conn>
+<conn target="io_op" explode="1">
+{<src pin="io_re" mod="io_re" brief="1"/>
+,<src pin="io_we" mod="io_we" brief="1"/>
+}</conn>
+<conn target="clk">
+<src pin="clk" mod="clk" brief="1"/>
+</conn>
+<conn target="rst">
+<src pin="rst" mod="rst" brief="1"/>
+</conn>
+</module>
+    <module name="add_q" type="z_adder" x="1260" y="360">
+      <conn target="i1">
+	<src pin="imm" mod="imm_prep0"/>
+      </conn>
+      <conn target="i0">
+	<src pin="rh_out" mod="rf">
+
+	  <wp x="1245" y="387.5"/>
+	</src>
+      </conn>
+    </module>
+    
+    <module name="mem_to_reg" type="is_zero" x="560" y="520" param="11">
+      
+    <conn target="d" explode="1">
+<src pin="out" mod="mem_mux">
+<wp x="1725" y="427.5"/>
+<wp x="425" y="427.5"/>
+<wp x="425" y="547.5"/>
+</src>
+[15:5]</conn>
+</module>
+    
+    <out name="rampz" width="1" x="1560" y="920">
+<conn target="rampz">
+<src pin="rampz" mod="io_reg_file"/>
+</conn>
+</out>
+<out name="imm_out" width="8" x="1740" y="700">
+      <conn target="imm_out">
+	<src pin="imm" mod="imm_prep0" brief="0"/>
+      </conn>
+    </out>
+    
+    <in name="c_ram_op" width="2" x="20" y="380"/>
+<out name="rd_out" width="8" x="1760" y="60">
+      <conn target="rd_out">
+	<src pin="rd_out" mod="rf">
+	  <wp x="1245" y="87.5"/>
+	</src>
+      </conn>
+      <conn target="rd_out"/>
+    </out>
+    <out name="rr_out" width="8" x="1760" y="100">
+      <conn target="rr_out">
+	<src pin="rr_out" mod="rf">
+	  <wp x="1285" y="227.5"/>
+	  <wp x="1285" y="127.5"/>
+	</src>
+      </conn>
+    </out>
+    <out name="sreg_out" width="8" x="1740" y="860">
+      
+    <conn target="sreg_out">
+	<src pin="sreg" mod="io_reg_file">
+	  <wp x="1705" y="887.5"/>
+	</src>
+      </conn>
+</out>
+    <in name="c_ram_addr_sel" width="3" x="20" y="580"/>
+    
+    <in name="c_rh_sel" width="2" x="20" y="660"/>
+    
+    
+    
+    
+    
+    <in name="c_imm_type_in" width="3" x="20" y="440"/>
+<in name="c_rampz_inc" width="1" x="20" y="740"/>
+    
+    
+    <in name="c_sp_op" width="2" x="20" y="800"/>
+<cbox x="300" y="80" w="120" h="22" type="ADIW">
+Phase 1,2: sel=0<assoc mod="rd_mux"/>
+</cbox>
+    <cbox x="1120" y="640" w="120" h="44" type="ADIW">
+      Phase 1: imm_type=imm6, Phase 2: imm_type = zero</cbox>
+    <cbox x="1080" y="780" w="120" h="56" type="doc">
+      How to build the immediate that goes into the ALU<assoc mod="imm_prep0"/>
+</cbox>
+    <cbox x="780" y="80" w="120" h="68" type="LD">
+      If we're loading, this mux selects between rr and rh+q<assoc mod="rd_st_mux"/>
+</cbox>
+    <cbox x="480" y="260" w="120" h="128" type="ST">
+      If we're storing memory that is mapped to the reg file, then we need to make rd the new target for writing, i.e. make rr = rd, so this mux will do that on phase 2 of a st<assoc mod="swap_rd_rr_mux"/>
+</cbox>
+    <cbox x="780" y="80" w="120" h="56" type="ST">
+      Choose between rd and rh+q as target for st</cbox>
+    
+    <cbox x="560" y="440" w="120" h="68" type="doc">
+      Test if memory we're writing to is in the reg file mapped region<assoc mod="mem_to_reg"/>
+</cbox>
+    <cbox x="300" y="260" w="120" h="92" type="doc">
+      Choose how to pull Rd off the inst (and increment it for phase 2 of the 16-bit writes of adiw/sbiw)
+<assoc mod="rd_mux"/>
+</cbox>
+    <cbox x="280" y="480" w="120" h="44" type="doc">
+      Choose how to pull rr off the inst<assoc mod="rr_mux"/>
+</cbox>
+    <cbox x="780" y="100" w="120" h="32" type="ADIW">
+      Phase 1,2: sel=0</cbox>
+    <in name="c_rh_op" width="2" x="20" y="620"/>
+    
+    
+    
+    
+    <in name="mem_out_in" width="8" x="420" y="960"/>
+<in name="dbus_adr" width="6" x="75" y="1007"/>
+<in name="io_re" width="1" x="89" y="1098"/>
+<in name="io_we" width="1" x="126" y="1169"/>
+
+    <out name="Z" width="16" x="1740" y="640">
+<conn target="Z">
+<src pin="Z" mod="rf">
+<wp x="1425" y="267.5"/>
+<wp x="1425" y="667.5"/>
+</src>
+</conn>
+</out>
+<out name="temp" width="8" x="1740" y="1060">
+      <conn target="temp">
+	<src pin="q" mod="temp">
+	  <wp x="1705" y="1087.5"/>
+	</src>
+      </conn>
+    </out>
+    
+  <out name="dbusin_int" width="8" x="1740" y="940">
+<conn target="dbusin_int">
+<src pin="dbusin_int" mod="io_reg_file"/>
+</conn>
+</out>
+<cbox x="720" y="460" w="120" h="22" type="ADIW">
+Phase 1,2: sel=0</cbox>
+<cbox x="300" y="80" w="120" h="22" type="ADC">
+sel=1
+<assoc mod="rd_mux"/>
+</cbox>
+<cbox x="780" y="100" w="120" h="22" type="ADC">
+sel=0<assoc mod="rd_st_mux"/>
+</cbox>
+<cbox x="720" y="460" w="120" h="22" type="ADC">
+sel=0<assoc mod="wr_en_mux"/>
+</cbox>
+<cbox x="280" y="360" w="120" h="22" type="ADC">
+sel=0<assoc mod="rr_mux"/>
+</cbox>
+<cbox x="540" y="120" w="120" h="22" type="ADC">
+c_st=0, so sel=0<assoc mod="swap_rd_rr_mux"/>
+</cbox>
+<cbox x="760" y="280" w="120" h="22" type="ADC">
+c_ld=0, so sel=0<assoc mod="rr_ld_mux"/>
+</cbox>
+<cbox x="1120" y="640" w="151" h="22" type="BCLR">
+imm_type=imm_mask4<assoc mod="imm_prep0"/>
+</cbox>
+<cbox x="1580" y="380" w="120" h="22" type="LD">
+sel=3 (resp. 1) for rh+q (resp. rh)<assoc mod="mem_mux"/>
+</cbox>
+<cbox x="760" y="460" w="120" h="22" type="LD">
+sel=1<assoc mod="wr_en_mux"/>
+</cbox>
+<cbox x="760" y="260" w="120" h="58" type="LD">
+c_ld=1, so sel=1, so if X+q etc. is in the reg file, this will set rr to that value<assoc mod="rr_ld_mux"/>
+</cbox>
+
+<in name="dbus_out" width="8" x="270" y="1219"/>
+<in name="dbusin_ext" width="8" x="20" y="520"/>
+<in name="sreg_in" width="8" x="453" y="1259"/>
+<module name="rd_mux" type="mux4" x="300" y="120" param="5">
+<conn target="i0" explode="1">
+{11,<src pin="inst_in" mod="inst_in" brief="0">
+<wp x="105" y="147.5"/>
+</src>
+[5:4],<src pin="c_adiw_phase" mod="c_adiw_phase" brief="1"/>
+}</conn>
+<conn target="i1" explode="1">
+<src pin="inst_in" mod="inst_in" brief="0">
+<wp x="105" y="167.5"/>
+</src>
+[8:4]</conn>
+<conn target="i2" explode="1">
+{1,<src pin="inst_in" mod="inst_in" brief="0">
+<wp x="105" y="187.5"/>
+</src>
+[7:4]}</conn>
+<conn target="sel">
+<src pin="c_rd_rr_sel" mod="c_rd_rr_sel" brief="1"/>
+</conn>
+<conn target="i3" explode="1">
+0</conn>
+</module>
+<module name="mem_mux" type="mux8" x="1580" y="160" param="16">
+<conn target="i0">
+<src pin="inst_in" mod="inst_in" brief="1">
+<wp x="105" y="247.5"/>
+</src>
+</conn>
+<conn target="i1">
+<src pin="rh_out" mod="rf" brief="0">
+<wp x="1325" y="247.5"/>
+<wp x="1325" y="207.5"/>
+</src>
+</conn>
+<conn target="i2" explode="1">
+{<src pin="sph" mod="io_reg_file"/>
+ ,<src pin="spl" mod="io_reg_file"/>
+ }</conn>
+<conn target="i3">
+<src pin="output" mod="add_q">
+<wp x="1545" y="387.5"/>
+</src>
+</conn>
+
+<conn target="sel">
+<src pin="c_ram_addr_sel" mod="c_ram_addr_sel" brief="1"/>
+</conn>
+<conn target="i4" explode="0">
+{~ <src pin="inst_in" mod="inst_in" brief="1"/>
+[8], <src pin="inst_in" mod="inst_in" brief="1"/>
+[8], <src pin="inst_in" mod="inst_in" brief="1"/>
+[10], <src pin="inst_in" mod="inst_in" brief="1"/>
+[9], <src pin="inst_in" mod="inst_in" brief="1"/>
+[3:0]}</conn>
+</module>
+<cbox x="1580" y="380" w="120" h="34" type="RET">
+Select the stack pointer<assoc mod="mem_mux"/>
+</cbox>
+<cbox x="1240" y="820" w="120" h="22" type="RET">
+sp_op=inc<assoc mod="io_reg_file"/>
+</cbox>
+
+<out name="ram_addr" width="16" x="1760" y="160">
+      
+    <conn target="ram_addr">
+	
+      <src pin="out" mod="mem_mux">
+<wp x="1725" y="227.5"/>
+</src>
+</conn>
+</out>
+<out name="mem_to_reg_out" width="1" x="1740" y="560">
+
+
+<conn target="mem_out_sel" explode="0">
+<src pin="result" mod="mem_to_reg" brief="1"/>
+</conn>
+</out>
+
+<in name="clk" width="1" x="20" y="880"/>
+<in name="rst" width="1" x="20" y="840"/>
+</module_type>
+  <module_type name="execute">
+    <module name="alu0" type="alu" x="500" y="380">
+
+      <conn target="B">
+	<src pin="out" mod="aluB_mux">
+<wp x="385" y="647.5"/>
+<wp x="385" y="427.5"/>
+</src>
+      </conn>
+      <conn target="T" explode="1">
+	<src pin="sreg_in" mod="sreg_in">
+	  <wp x="125" y="467.5"/>
+	</src>
+	[7]</conn>
+      <conn target="C" explode="1">
+	<src pin="sreg_in" mod="sreg_in">
+	  <wp x="125" y="487.5"/>
+	</src>
+	[0]</conn>
+      
+    <conn target="A">
+
+	
+      <src pin="out" mod="aluA_mux">
+<wp x="385" y="367.5"/>
+<wp x="385" y="407.5"/>
+</src>
+</conn>
+<conn target="op">
+<src pin="c_alu_op" mod="c_alu_op" brief="1"/>
+</conn>
+</module>
+    <module name="output_mux" type="mux2" x="1140" y="340" param="8">
+      <conn target="i1">
+	<src pin="result" mod="alu0">
+	  <wp x="1065" y="407.5"/>
+<wp x="1065" y="387.5"/>
+	</src>
+      </conn>
+      <conn target="i0">
+	<src pin="out" mod="z_mux">
+<wp x="1065" y="127.5"/>
+<wp x="1065" y="367.5"/>
+</src>
+      </conn>
+    <conn target="sel">
+<src pin="c_ex_out" mod="c_ex_out" brief="1"/>
+</conn>
+</module>
+    <out name="ex_out" width="8" x="1500" y="340">
+      <conn target="ex_out">
+	<src pin="out" mod="output_mux"/>
+      </conn>
+    </out>
+    <in name="inst_in" width="16" x="40" y="140"/>
+    <module name="z_mux" type="mux2" x="800" y="100" param="8">
+      <conn target="i0" explode="1">
+	<src pin="inst_in" mod="inst_in">
+	  <wp x="685" y="167.5"/>
+	  <wp x="685" y="127.5"/>
+	</src>
+	[15:8]</conn>
+      <conn target="i1" explode="1">
+	<src pin="inst_in" mod="inst_in">
+	  <wp x="705" y="167.5"/>
+	  <wp x="705" y="147.5"/>
+	</src>
+	[7:0]</conn>
+    <conn target="sel" explode="1">
+<src pin="Z" mod="Z" brief="1"/>
+[0]</conn>
+</module>
+    <module name="sreg_mux" type="mux2" x="1140" y="440" param="8">
+      <conn target="i1">
+	<src pin="output" mod="sreg_compute"/>
+      </conn>
+      <conn target="i0">
+	<src pin="result" mod="alu0">
+<wp x="1065" y="407.5"/>
+<wp x="1065" y="467.5"/>
+</src>
+      </conn>
+    <conn target="sel">
+<src pin="c_new_sreg_sel" mod="c_new_sreg_sel" brief="1"/>
+</conn>
+</module>
+    <out name="new_sreg" width="8" x="1500" y="440">
+
+      <conn target="new_sreg">
+
+	<src pin="out" mod="sreg_mux"/>
+      </conn>
+    </out>
+    <module name="sreg_compute" type="bitwise_mux" x="800" y="460">
+      <conn target="i0" explode="1">
+{0,<src pin="flags" mod="alu0">
+
+	<wp x="685" y="427.5"/>
+<wp x="685" y="487.5"/>
+</src>
+}</conn>
+      <conn target="i1">
+	<src pin="sreg_in" mod="sreg_in">
+	  <wp x="125" y="507.5"/>
+	</src>
+      </conn>
+      <conn target="mask">
+	<src pin="c_flags_mask" mod="c_flags_mask" brief="1">
+	  
+	  
+	</src>
+      </conn>
+    </module>
+    <module name="pc_offset_comp" type="offset_comp" x="800" y="200">
+      <conn target="pc">
+	<src pin="pc_in" mod="pc_in">
+
+	</src>
+      </conn>
+      <conn target="inst">
+	<src pin="inst_in" mod="inst_in">
+	  <wp x="705" y="167.5"/>
+	  <wp x="705" y="247.5"/>
+	</src>
+      </conn>
+      
+    <conn target="c_pc_offset_mode">
+	
+      <src pin="c_pc_offset_mode" mod="c_pc_offset_mode" brief="1"/>
+</conn>
+</module>
+    
+    
+
+    <in name="imm_in" width="8" x="40" y="640"/>
+<in name="rd_in" width="8" x="40" y="340"/>
+<module name="aluB_mux" type="mux2" x="240" y="620" param="8">
+      <conn target="i0">
+	<src pin="rr_in" mod="rr_in"/>
+      </conn>
+      <conn target="i1">
+	<src pin="imm_in" mod="imm_in"/>
+      </conn>
+      <conn target="sel">
+	<src pin="c_alu_b_sel" mod="c_alu_b_sel" brief="1"/>
+      </conn>
+    </module>
+    
+
+    <in name="rr_in" width="8" x="40" y="600"/>
+<in name="sreg_in" width="8" x="40" y="480"/>
+    
+
+
+    
+<in name="Z" width="16" x="40" y="1080"/>
+<in name="temp" width="8" x="40" y="380"/>
+<in name="c_alu_a_sel" width="2" x="40" y="800"/>
+    
+    
+    <out name="pc_plus_offset" width="16" x="1500" y="200">
+      
+    <conn target="pc_plus_offset">
+	<src pin="pc_plus_offset" mod="pc_offset_comp"/>
+      </conn>
+</out>
+
+    <in name="pc_in" width="16" x="40" y="200"/>
+    <in name="c_branch_mode" width="1" x="40" y="700"/>
+    <out name="branch_taken" width="1" x="900" y="700">
+      
+    <conn target="branch_taken" explode="1">
+<src pin="c_branch_mode" mod="c_branch_mode" brief="0"/>
+ ~^ <src pin="flags" mod="alu0" brief="0">
+<wp x="685" y="427.5"/>
+<wp x="685" y="707.5"/>
+</src>
+[1] </conn>
+</out>
+    <cbox x="240" y="280" w="120" h="56" type="doc">
+      Choose between rd, sreg, temp, and zero<assoc mod="aluA_mux"/>
+</cbox>
+    <cbox x="240" y="580" w="120" h="44" type="doc">
+      Choose between rr and imm<assoc mod="aluB_mux"/>
+</cbox>
+    <cbox x="240" y="460" w="120" h="32" type="ADIW">
+      Phase 1,2: sel=0</cbox>
+    <cbox x="240" y="720" w="120" h="32" type="ADIW">
+      Phase 1,2: sel=1</cbox>
+    <cbox x="500" y="520" w="120" h="44" type="ADIW">
+Phase 1: op = ADD/SUB, Phase 2: op = ADC/SBC</cbox>
+    <cbox x="800" y="560" w="120" h="44" type="ADIW">
+      flags_mask = 00011111</cbox>
+    <cbox x="1140" y="540" w="120" h="32" type="ADIW">
+      Phase 1,2: sel=1</cbox>
+    <in name="c_alu_b_sel" width="1" x="40" y="840"/>
+  <in name="c_flags_mask" width="8" x="40" y="980"/>
+<module name="aluA_mux" type="mux4" x="240" y="340" param="8">
+<conn target="i0">
+<src pin="rd_in" mod="rd_in"/>
+</conn>
+<conn target="i1">
+<src pin="sreg_in" mod="sreg_in">
+<wp x="125" y="507.5"/>
+<wp x="125" y="387.5"/>
+</src>
+</conn>
+<conn target="sel">
+<src pin="c_alu_a_sel" mod="c_alu_a_sel" brief="1"/>
+</conn>
+<conn target="i2">
+<src pin="temp" mod="temp"/>
+</conn>
+<conn target="i3" explode="1">
+0</conn>
+</module>
+
+<in name="c_alu_op" width="4" x="40" y="880"/>
+
+<in name="c_pc_offset_mode" width="1" x="40" y="740"/>
+<in name="c_new_sreg_sel" width="1" x="40" y="1020"/>
+<in name="c_ex_out" width="1" x="40" y="920"/>
+<cbox x="900" y="620" w="120" h="80" type="doc">
+branch mode selects if should branch ==0 or !=0 based on alu output flag<assoc mod="branch_taken"/>
+</cbox>
+<cbox x="1140" y="300" w="120" h="22" type="ADIW">
+Phase 1,2: sel=1</cbox>
+<cbox x="427" y="316" w="120" h="22" type="ADC">
+sel=0<assoc mod="aluA_mux"/>
+</cbox>
+<cbox x="396" y="707" w="120" h="22" type="ADC">
+sel=0<assoc mod="aluB_mux"/>
+</cbox>
+<cbox x="500" y="520" w="131" h="22" type="ADC">
+op=ADC,ADD,SBC,...<assoc mod="alu0"/>
+</cbox>
+<cbox x="1140" y="300" w="120" h="22" type="ADC">
+sel=1<assoc mod="output_mux"/>
+</cbox>
+<cbox x="800" y="560" w="144" h="22" type="ADC">
+flags_mask=00111111<assoc mod="sreg_compute"/>
+</cbox>
+<cbox x="1140" y="540" w="120" h="22" type="ADC">
+sel=1</cbox>
+<cbox x="1146" y="547" w="120" h="22" type="BCLR">
+sel=0</cbox>
+<cbox x="500" y="340" w="120" h="34" type="BCLR">
+op=OR or ANDN as needed</cbox>
+<cbox x="277" y="788" w="120" h="22" type="BCLR">
+sel=1<assoc mod="aluB_mux"/>
+</cbox>
+<cbox x="417" y="292" w="120" h="22" type="BCLR">
+sel=1<assoc mod="aluA_mux"/>
+</cbox>
+<cbox x="405" y="313" w="120" h="22" type="LD">
+sel=3<assoc mod="aluA_mux"/>
+</cbox>
+<cbox x="282" y="777" w="120" h="22" type="LD">
+sel=0<assoc mod="aluB_mux"/>
+</cbox>
+<cbox x="534" y="536" w="120" h="22" type="LD">
+op=OR<assoc mod="alu0"/>
+</cbox>
+<cbox x="1140" y="300" w="120" h="22" type="LD">
+sel=1<assoc mod="output_mux"/>
+</cbox>
+<cbox x="800" y="560" w="142" h="22" type="LD">
+flags_mask=00000000<assoc mod="sreg_compute"/>
+</cbox>
+<cbox x="240" y="240" w="120" h="22" type="RET">
+sel=2<assoc mod="aluA_mux"/>
+</cbox>
+</module_type>
+
+
+  <module_type name="memory">
+    <module name="mem_mux" type="mux2" x="820" y="120" param="8">
+      <conn target="i1">
+	<src pin="ex_out" mod="ex_out"/>
+      </conn>
+      <conn target="i0">
+	<src pin="dbus_in" mod="dbus_in"/>
+      </conn>
+      
+    
+<conn target="sel">
+<src pin="c_mem_out_sel" mod="c_mem_out_sel"/>
+ | <src pin="mem_to_reg_in" mod="mem_to_reg_in"/>
+</conn>
+</module>
+    
+    
+    <in name="ex_out" width="8" x="40" y="220"/>
+<in name="dbus_in" width="8" x="540" y="80"/>
+    
+    <out name="mem_output" width="8" x="1440" y="120">
+
+      
+    <conn target="mem_output">
+
+	
+      <src pin="out" mod="mem_mux"/>
+</conn>
+</out>
+    <out name="dbus_out" width="8" x="1400" y="280">
+      
+    <conn target="dbus_out">
+	
+      <src pin="out" mod="dbus_mux"/>
+</conn>
+</out>
+    <out name="adr" width="6" x="1400" y="460">
+      
+    <conn target="adr">
+	
+      <src pin="out" mod="adr_mux"/>
+</conn>
+</out>
+    <in name="imm_in" width="8" x="40" y="320"/>
+    <in name="ram_addr_in" width="16" x="60" y="480"/>
+    <out name="ram_re" width="1" x="620" y="740"/>
+    <out name="ram_we" width="1" x="620" y="700"/>
+    <out name="io_re" width="1" x="960" y="780">
+      <conn target="io_re" explode="1">
+<src pin="c_io_re" mod="c_io_re"/>
+ 	|((<src pin="ram_addr_in" mod="ram_addr_in">
+<wp x="485" y="507.5"/>
+</src>
+ 	[15:7]==0)&amp;(<src pin="ram_addr_in" mod="ram_addr_in">
+<wp x="485" y="507.5"/>
+</src>
+ 	[6]^<src pin="ram_addr_in" mod="ram_addr_in">
+<wp x="485" y="507.5"/>
+</src>
+ 	[5]) &amp; <src pin="c_ram_re" mod="c_ram_re">
+<wp x="165" y="767.5"/>
+<wp x="265" y="807.5"/>
+</src>
+ 	)</conn>
+    </out>
+    <out name="io_we" width="1" x="960" y="900">
+      <conn target="io_we" explode="1">
+<src pin="c_io_we" mod="c_io_we"/>
+ 	|((<src pin="ram_addr_in" mod="ram_addr_in">
+<wp x="365" y="507.5"/>
+<wp x="365" y="927.5"/>
+</src>
+ 	[15:7]==0)&amp;(<src pin="ram_addr_in" mod="ram_addr_in">
+<wp x="365" y="507.5"/>
+<wp x="365" y="927.5"/>
+</src>
+ 	[6]^<src pin="ram_addr_in" mod="ram_addr_in">
+<wp x="365" y="507.5"/>
+<wp x="365" y="927.5"/>
+</src>
+ 	[5]) &amp; <src pin="c_ram_we" mod="c_ram_we">
+<wp x="265" y="927.5"/>
+</src>
+ 	)</conn>
+    </out>
+    <in name="c_ram_re" width="1" x="80" y="740"/>
+    <in name="c_ram_we" width="1" x="80" y="860"/>
+    <in name="c_io_re" width="1" x="80" y="780"/>
+    <in name="c_io_we" width="1" x="80" y="900"/>
+    <in name="c_dbus_adr_sel" width="2" x="40" y="580"/>
+    <in name="c_dbus_out_sel" width="2" x="40" y="260"/>
+    <in name="c_mem_out_sel" width="1" x="40" y="180"/>
+  <cbox x="820" y="220" w="120" h="22" type="ADIW">
+Phase 1,2: sel=1</cbox>
+<cbox x="820" y="220" w="120" h="22" type="ADC">
+sel=1<assoc mod="mem_mux"/>
+</cbox>
+<cbox x="800" y="600" w="120" h="22" type="LD">
+sel=2
+<assoc mod="adr_mux"/>
+</cbox>
+<cbox x="820" y="220" w="120" h="22" type="LD">
+sel=1<assoc mod="mem_mux"/>
+</cbox>
+<module name="dbus_mux" type="mux4" x="820" y="280" param="8">
+<conn target="i2">
+<src pin="ex_out" mod="ex_out"/>
+</conn>
+<conn target="i3">
+
+</conn>
+<conn target="i0"/>
+<conn target="i1"/>
+<conn target="sel">
+<src pin="c_dbus_out_sel" mod="c_dbus_out_sel" brief="1"/>
+</conn>
+</module>
+<module name="adr_mux" type="mux4" x="800" y="440" param="6">
+<conn target="i0" explode="1">
+<src pin="imm_in" mod="imm_in"/>
+[5:0]</conn>
+<conn target="i1" explode="1">
+{1,<src pin="imm_in" mod="imm_in"/>
+[4:0]}</conn>
+<conn target="i2" explode="1">
+{<src pin="ram_addr_in" mod="ram_addr_in"/>
+[6],<src pin="ram_addr_in" mod="ram_addr_in"/>
+[4:0]}</conn>
+<conn target="sel">
+<src pin="c_dbus_adr_sel" mod="c_dbus_adr_sel" brief="1"/>
+</conn>
+</module>
+<cbox x="828" y="606" w="120" h="22" type="RET">
+sel=2<assoc mod="adr_mux"/>
+</cbox>
+<in name="mem_to_reg_in" width="1" x="40" y="140"/>
+</module_type>
+  <module_type name="mux2">
+    <in name="i0" width="0" x="292" y="152"/>
+    <in name="i1" width="0" x="304" y="275"/>
+    <out name="out" width="0" x="603" y="292"/>
+    <in name="sel" width="1" x="476" y="162"/>
+  </module_type>
+  <module_type name="mux4">
+    <in name="i0" width="0" x="336" y="212"/>
+    <in name="i1" width="0" x="338" y="286"/>
+    <in name="i2" width="0" x="353" y="350"/>
+    <in name="i3" width="0" x="371" y="440"/>
+    <in name="sel" width="2" x="370" y="126"/>
+    <out name="out" width="0" x="699" y="217"/>
+  </module_type>
+  <module_type name="latch">
+    <in name="d" width="0" x="198" y="372"/>
+    <out name="q" width="0" x="494" y="404"/>
+    <in name="en" width="1" x="202" y="509"/>
+  <in name="clk" width="1" x="194" y="276"/>
+<in name="rst" width="1" x="212" y="228"/>
+</module_type>
+  <module_type name="register">
+    <in name="d" width="0" x="262" y="253"/>
+    <out name="q" width="0" x="525" y="266"/>
+  <in name="clk" width="1" x="277" y="375"/>
+<in name="rst" width="1" x="320" y="462"/>
+</module_type>
+  <module_type name="is_zero">
+    <in name="d" width="0" x="246" y="257"/>
+    <out name="result" width="1" x="568" y="297">
+      <conn target="result">
+	(<src pin="d" mod="d"/>
+	== 0)</conn>
+    </out>
+  </module_type>
+  <module_type name="reg_file">
+    <in name="rd_sel" width="5" x="160" y="140"/>
+    <in name="rr_sel" width="5" x="160" y="200"/>
+    <in name="wr_en" width="1" x="160" y="380"/>
+    <in name="rh_sel" width="2" x="160" y="320"/>
+    
+    <in name="rd_in" width="8" x="160" y="260"/>
+
+    
+    <out name="rd_out" width="8" x="400" y="140"/>
+    <out name="rr_out" width="8" x="400" y="200"/>
+    <out name="rh_out" width="16" x="400" y="260"/>
+    <out name="Z" width="16" x="400" y="320"/>
+  <in name="rh_op" width="2" x="187" y="482"/>
+<in name="clk" width="1" x="163" y="589"/>
+<in name="rst" width="1" x="160" y="544"/>
+</module_type>
+  <module_type name="imm_prep">
+    <in name="c_imm_type" width="3" x="216" y="191"/>
+    <in name="inst_in" width="16" x="233" y="294"/>
+    <out name="imm" width="8" x="469" y="191"/>
+  </module_type>
+  <module_type name="loc_io_reg_file">
+    
+    
+    <in name="c_rampz0_inc" width="1" x="120" y="340"/>
+    <out name="sreg" width="8" x="400" y="140"/>
+    <out name="spl" width="8" x="400" y="220"/>
+    <out name="sph" width="8" x="400" y="280"/>
+    <out name="rampz" width="1" x="400" y="340"/>
+    <in name="dbusin" width="8" x="120" y="140"/>
+    <out name="dbusin_int" width="8" x="415" y="458"/>
+    <in name="dbus_adr" width="6" x="189" y="479"/>
+    
+    
+    <in name="sreg_in" width="8" x="310" y="863"/>
+    <in name="dbus_out" width="8" x="697" y="706"/>
+  <in name="sp_op" width="2" x="339" y="309"/>
+<in name="io_op" width="2" x="269" y="719"/>
+<in name="clk" width="1" x="215" y="617"/>
+<in name="rst" width="1" x="240" y="582"/>
+</module_type>
+  <module_type name="z_adder">
+    <in name="i0" width="16" x="265" y="206"/>
+    <in name="i1" width="8" x="251" y="366"/>
+    <out name="output" width="16" x="619" y="241"/>
+  </module_type>
+  <module_type name="alu">
+    <in name="A" width="8" x="389" y="188"/>
+    <in name="B" width="8" x="396" y="330"/>
+    <out name="result" width="8" x="774" y="350"/>
+    <out name="flags" width="7" x="812" y="457"/>
+    <in name="op" width="4" x="373" y="138"/>
+    <in name="T" width="1" x="436" y="467"/>
+    <in name="C" width="1" x="449" y="561"/>
+  </module_type>
+  <module_type name="bitwise_mux">
+    <in name="i0" width="8" x="335" y="313"/>
+    <in name="i1" width="8" x="369" y="428"/>
+    <in name="mask" width="8" x="339" y="132"/>
+    <out name="output" width="8" x="723" y="281"/>
+  </module_type>
+  <module_type name="offset_comp">
+    <in name="pc" width="16" x="366" y="266"/>
+    <in name="inst" width="16" x="388" y="204"/>
+    <in name="c_pc_offset_mode" width="1" x="455" y="458"/>
+    <out name="pc_plus_offset" width="16" x="810" y="265"/>
+  </module_type>
+  <module_type name="fetch">
+    <out name="addr" width="16" x="1780" y="520">
+      
+    <conn target="addr">
+	
+      <src pin="out" mod="addr_mux"/>
+</conn>
+</out>
+    <in name="Z" width="16" x="100" y="540"/>
+    <module name="pc_latch" type="latch" x="1220" y="340" param="16">
+
+      <conn target="en">
+	<src pin="ireset" mod="ireset" brief="1"/>
+      </conn>
+      <conn target="d">
+
+	<src pin="out" mod="next_pc_mux"/>
+      </conn>
+    <conn target="rst">
+<src pin="ireset" mod="ireset" brief="1"/>
+</conn>
+<conn target="clk"/>
+<conn target="clk">
+<src pin="clk" mod="clk" brief="1"/>
+</conn>
+</module>
+    <module name="pc_stall" type="mux2" x="400" y="260" param="16">
+      <conn target="i0">
+	<src pin="q" mod="pc_latch">
+	  <wp x="1365" y="247.5"/>
+	  <wp x="365" y="247.5"/>
+	</src>
+      </conn>
+      <conn target="i1">
+	<src pin="output" mod="pc_increment">
+	  <wp x="325" y="307.5"/>
+	</src>
+      </conn>
+      <conn target="sel">
+	<src pin="c_pc_stall" mod="c_pc_stall" brief="1"/>
+      </conn>
+    </module>
+    <module name="branch_mux" type="mux2" x="580" y="400" param="16">
+      <conn target="i0">
+	<src pin="out" mod="pc_stall">
+	  <wp x="545" y="347.5"/>
+	</src>
+      </conn>
+      <conn target="i1">
+	<src pin="pc_plus_offset" mod="pc_plus_offset">
+	  <wp x="185" y="447.5"/>
+	</src>
+      </conn>
+      <conn target="sel">
+	<src pin="branch_taken" mod="branch_taken" brief="1"/>
+      </conn>
+    </module>
+
+    
+    <in name="rampz0_in" width="1" x="100" y="580"/>
+    <module name="pc_increment" type="inc" x="180" y="280" param="16">
+      <conn target="input">
+	<src pin="q" mod="pc_latch">
+	  <wp x="1365" y="227.5"/>
+	  <wp x="145" y="227.5"/>
+	</src>
+      </conn>
+    </module>
+    <in name="inst" width="16" x="100" y="440"/>
+    
+    <in name="c_pc_next" width="2" x="100" y="820"/>
+    <in name="c_pc_stall" width="1" x="100" y="400"/>
+    <in name="ireset" width="1" x="100" y="780"/>
+    <in name="c_imem_addr_sel" width="2" x="100" y="740"/>
+
+    <in name="pc_plus_offset" width="16" x="100" y="360"/>
+    <in name="branch_taken" width="1" x="100" y="660"/>
+    <module name="next_pc_mux" type="mux8" x="960" y="340" param="16">
+      <conn target="i0">
+	<src pin="out" mod="pc_stall">
+	  <wp x="545" y="367.5"/>
+	</src>
+      </conn>
+      <conn target="i2">
+	<src pin="out" mod="branch_mux">
+	  <wp x="725" y="407.5"/>
+	</src>
+      </conn>
+      <conn target="i1">
+	<src pin="pc_plus_offset" mod="pc_plus_offset"/>
+      </conn>
+      <conn target="i3">
+	<src pin="inst" mod="inst" brief="1"/>
+      </conn>
+      <conn target="i4">
+	<src pin="temp_in" mod="temp_in" brief="1"/>
+      </conn>
+      <conn target="i5">
+	
+      </conn>
+      <conn target="sel">
+	<src pin="c_pc_next" mod="c_pc_next" brief="1"/>
+      </conn>
+      
+      <conn target="i6">
+	<src pin="out" mod="pc_skip">
+	  <wp x="805" y="167.5"/>
+	  <wp x="805" y="487.5"/>
+	</src>
+      </conn>
+    <conn target="i7" explode="1">
+{0000,<src pin="inst" mod="inst" brief="1"/>
+[11:0]}</conn>
+</module>
+    
+    <in name="temp_in" width="8" x="100" y="700"/>
+<in name="is_32_in" width="1" x="100" y="860"/>
+    <module name="pc_skip" type="mux2" x="500" y="140" param="16">
+      <conn target="i0" explode="1">
+	<src pin="q" mod="pc_latch">
+	  <wp x="1365" y="127.5"/>
+	  <wp x="385" y="127.5"/>
+	  <wp x="385" y="167.5"/>
+	</src>
+	+1</conn>
+      <conn target="i1" explode="1">
+	<src pin="q" mod="pc_latch">
+	  <wp x="1365" y="107.5"/>
+	  <wp x="365" y="107.5"/>
+	  <wp x="365" y="187.5"/>
+	</src>
+	+2</conn>
+      <conn target="sel">
+	<src pin="is_32_in" mod="is_32_in" brief="1"/>
+      </conn>
+    </module>
+  <module name="addr_mux" type="mux4" x="1400" y="520" param="16">
+<conn target="i0" explode="0">
+<src pin="q" mod="pc_latch"/>
+</conn>
+<conn target="sel">
+<src pin="c_imem_addr_sel" mod="c_imem_addr_sel" brief="1"/>
+</conn>
+<conn target="i1" explode="1">
+{0,<src pin="Z" mod="Z"/>
+[15:1]}</conn>
+<conn target="i2" explode="1">
+{<src pin="rampz0_in" mod="rampz0_in">
+<wp x="1205" y="607.5"/>
+</src>
+, <src pin="Z" mod="Z">
+<wp x="1205" y="567.5"/>
+</src>
+ [15:1]}</conn>
+<conn target="i3"/>
+</module>
+<in name="clk" width="1" x="100" y="500"/>
+</module_type>
+  <module_type name="inc">
+    <in name="input" width="0" x="434" y="310"/>
+    <out name="output" width="0" x="725" y="313"/>
+  </module_type>
+  <module_type name="is_32_bit">
+    <in name="inst_in" width="16" x="328" y="223"/>
+    <out name="is_32_bit" width="1" x="829" y="220"/>
+  </module_type>
+  <module_type name="mux8">
+    <in name="i0" width="0" x="536" y="206"/>
+    <in name="i1" width="0" x="616" y="343"/>
+    <in name="i2" width="0" x="613" y="344"/>
+    <in name="i3" width="0" x="602" y="347"/>
+    
+    <in name="i4" width="0" x="603" y="347"/>
+<in name="i5" width="0" x="628" y="385"/>
+    <in name="i6" width="0" x="640" y="502"/>
+    
+    <in name="i7" width="0" x="632" y="470"/>
+<in name="sel" width="3" x="664" y="217"/>
+    <out name="out" width="0" x="927" y="197"/>
+  </module_type>
+</chip>

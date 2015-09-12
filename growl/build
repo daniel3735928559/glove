@@ -1,0 +1,2 @@
+xsltproc ../verilog.xsl <(cat growl_current.xml  | sed 's/</\n</g;s/>/>\n/g'|sed '/[<>]/!s/[ \t]//g'|tr -d '\n') > everything
+for x in `cat everything |grep ' ----'|sed 'sA[ /]AAg'`; do  y=$(echo $x|tr -d '\-\t'); cat everything|sed -n '/'$x'/,/ ----/{/----/!p}' > modules/$y; done
