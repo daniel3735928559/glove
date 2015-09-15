@@ -1,3 +1,13 @@
+## Old Project
+
+This project was found at an archeological digsite covering a
+little-explored corner of my hard drive.  It is well past its
+expiration date and in particular may no longer represent anyone's
+opinion about best-practices for either coding or functionality.  It
+is here because I still think the idea may have some value to someone,
+but the activation energy required for restarting actual development
+on this project is currently quite high.
+
 ## Synopsis
 
 Glove is a set of utilities for designing modules in limited Verilog
@@ -16,6 +26,10 @@ chip.
 
 ControlGen is a Python script for generating a control module for such
 a chip, and more generally can be used to construct state machines.
+
+## Demo (Over)
+
+[http://daniel3735928559.github.io/glove/over.html](http://daniel3735928559.github.io/glove/over.html)
 
 ## Running Over
 
